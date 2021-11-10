@@ -11,21 +11,15 @@
 Web application that manages everyday tasks in a company.
 
 ## Features
-• Invoice creation <br/> &nbsp;&nbsp;&nbsp;- automatic generation: invoice number, invoice id and total invoice amount. 
-• item search 
+**• Invoice creation** <br/> &nbsp;&nbsp;&nbsp;- automatic generation: invoice number, invoice id and total invoice amount. 
+**• item search** 
    - by item id, stock overview. 
-• Issuance of invoice 
-   - print invoice or send invoice by e-mail, issue R1 or regular invoice. 
-• Invoice cancellation 
-   - creating a cancellation invoice in case of return of the item. 
-• Preparation of reports 
-   - reports on daily/monthly turnover, repo. per item or per customer or total turnover. 
-• Search for customer data 
-   - search for customers and accounts of those customers 
-• Printout of basic data on the invoice 
-   - ID of the employee at the cash register, company data: 01B, address, director, telephone, IBAN - in case of non-cash payment, the due date of the invoice, date of invoice, date of delivery of goods, method of payment. Customer data: customer citizens or company data (R1 invoice).
-• Printout of item data on the invoice 
-   - item number, item ID, item name, quantity, unit price, amount. VAT, discount
+**• Issuance of invoice** <br/> &nbsp;&nbsp;&nbsp;- print invoice or send invoice by e-mail, issue R1 or regular invoice. 
+**• Invoice cancellation** <br/> &nbsp;&nbsp;&nbsp;- creating a cancellation invoice in case of return of the item. 
+**• Preparation of reports** <br/> &nbsp;&nbsp;&nbsp;- reports on daily/monthly turnover, repo. per item or per customer or total turnover. 
+**• Search for customer data** <br/> &nbsp;&nbsp;&nbsp;- search for customers and accounts of those customers 
+**• Printout of basic data on the invoice** <br/> &nbsp;&nbsp;&nbsp;- ID of the employee at the cash register, company data: 01B, address, director, telephone, IBAN - in case of non-cash payment, the due date of the invoice, date of invoice, date of delivery of goods, method of payment. Customer data: customer citizens or company data (R1 invoice).
+**• Printout of item data on the invoice** <br/> &nbsp;&nbsp;&nbsp;- item number, item ID, item name, quantity, unit price, amount. VAT, discount
 
 ## Technologies
 * Bootstrap
