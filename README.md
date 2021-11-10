@@ -11,7 +11,7 @@
 Web application that manages everyday tasks in a company.
 
 ## Features
-• Invoice creation 
+• Invoice creation<br/> 
    - automatic generation: invoice number, invoice id and total invoice amount. 
 • item search 
    - by item id, stock overview. 
