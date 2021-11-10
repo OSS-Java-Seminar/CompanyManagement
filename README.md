@@ -27,8 +27,8 @@ Web application that manages everyday tasks in a company.
 * SQLite/SQL Management Studio
 
 ## Database Model
-[.XML file]()
-[.JPG file]()
+[.XML file](https://github.com/OSS-Java-Seminar/CompanyManagement/blob/e404a70a1cfc799726642067589324e4b1fb1a1d/Database%20model/DatabaseModel.xml)
+[.JPG file](https://github.com/OSS-Java-Seminar/CompanyManagement/blob/e404a70a1cfc799726642067589324e4b1fb1a1d/Database%20model/DatabaseModel.jpg)
 
 ## Authors
 [Vesna Šimundić Bendić]
