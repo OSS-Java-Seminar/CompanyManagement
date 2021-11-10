@@ -11,8 +11,8 @@
 Web application that manages everyday tasks in a company.
 
 ## Features
-**• Invoice creation** <br/> &nbsp;&nbsp;&nbsp;- automatic generation: invoice number, invoice id and total invoice amount. 
-**• item search** <br/> &nbsp;&nbsp;&nbsp;- by item id, stock overview. 
+**• Invoice creation** <br/> &nbsp;&nbsp;&nbsp;- automatic generation: invoice number, invoice id and total invoice amount.<br/> 
+**• item search** <br/> &nbsp;&nbsp;&nbsp;- by item id, stock overview. <br/>
 **• Issuance of invoice** <br/> &nbsp;&nbsp;&nbsp;- print invoice or send invoice by e-mail, issue R1 or regular invoice. 
 **• Invoice cancellation** <br/> &nbsp;&nbsp;&nbsp;- creating a cancellation invoice in case of return of the item. 
 **• Preparation of reports** <br/> &nbsp;&nbsp;&nbsp;- reports on daily/monthly turnover, repo. per item or per customer or total turnover. 
