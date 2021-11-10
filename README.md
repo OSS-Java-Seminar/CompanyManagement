@@ -8,7 +8,7 @@
 * [Authors](https://github.com/OSS-Java-Seminar/CompanyManagement/blob/master/README.md#authors)
 
 ## General Info
-Web application that manages everyday tasks in a company.
+Company management web application that manages everyday tasks related to invoicing.
 
 ## Features
 **• Invoice creation** <br/> &nbsp;&nbsp;&nbsp;- automatic generation: invoice number, invoice id and total invoice amount. <br/><br/> 
