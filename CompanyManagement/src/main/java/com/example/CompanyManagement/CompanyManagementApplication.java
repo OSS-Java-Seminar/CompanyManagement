@@ -1,4 +1,4 @@
-package com.example.CompanyManagement.persistence.model;
+package com.example.CompanyManagement;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
