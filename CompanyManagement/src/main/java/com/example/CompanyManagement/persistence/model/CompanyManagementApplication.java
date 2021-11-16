@@ -1,13 +1,13 @@
-package com.example.demo;
+package com.example.CompanyManagement.persistence.model;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DemoApplication {
+public class CompanyManagementApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(CompanyManagementApplication.class, args);
 	}
 
 }
