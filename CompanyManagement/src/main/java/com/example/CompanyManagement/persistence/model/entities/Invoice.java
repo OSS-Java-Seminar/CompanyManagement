@@ -18,6 +18,16 @@ public class Invoice {
     int customerId;
     int employeeId;
 
+    @OneToOne
+    @JoinColumn(name = "payment_details_id", referencedColumnName = "Id")
+    private PaymentDetails paymentDetails;
+    @ManyToOne
+    @JoinColumn(name = "customer_id", referencedColumnName = "Id")
+    private Customer customer;
+    @ManyToOne
+    @JoinColumn(name = "employee_id", referencedColumnName = "Id")
+    private Employee employee;
+
     public int getInvoiceNumber() {
         return invoiceNumber;
     }

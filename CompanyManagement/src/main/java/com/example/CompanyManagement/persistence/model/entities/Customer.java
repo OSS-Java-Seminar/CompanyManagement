@@ -1,9 +1,6 @@
 package com.example.CompanyManagement.persistence.model.entities;
 
 import javax.persistence.*;
-/*import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;*/
 
 @Entity
 public class Customer {

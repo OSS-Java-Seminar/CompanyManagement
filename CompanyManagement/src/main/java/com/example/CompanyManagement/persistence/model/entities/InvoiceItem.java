@@ -10,6 +10,13 @@ public class InvoiceItem {
     int ItemId;
     int quantity;
 
+    @ManyToOne
+    @JoinColumn(name = "item_id", referencedColumnName = "Id")
+    private Item item;
+    @ManyToOne
+    @JoinColumn(name = "invoice_id", referencedColumnName = "Id")
+    private Invoice invoice;
+
     public int getQuantity() {
         return quantity;
     }

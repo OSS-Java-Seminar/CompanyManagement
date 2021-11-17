@@ -10,6 +10,10 @@ public class Workplace {
     @GeneratedValue(strategy=GenerationType.AUTO)
     String name;
 
+    @OneToMany
+    @JoinColumn(name = "employee_id", referencedColumnName = "Id")
+    private Workplace workplace;
+
     public String getName() {
         return name;
     }

@@ -14,6 +14,10 @@ public class Employee {
     String address;
     int workplaceId;
 
+    @ManyToOne
+    @JoinColumn(name = "workplace_id", referencedColumnName = "Id")
+    private Workplace workplace;
+
     public String getName() {
         return name;
     }
