@@ -1,11 +1,8 @@
 package com.example.CompanyManagement.persistence.entities;
+
 import lombok.Setter;
 import lombok.Getter;
 import javax.persistence.*;
-
-/*import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;*/
 
 @Getter
 @Setter
