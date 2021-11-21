@@ -28,7 +28,7 @@ Company management web application that manages everyday tasks related to invoic
 
 ## Database Model
 [.XML file](https://github.com/OSS-Java-Seminar/CompanyManagement/blob/dfe289d5b847ccb2bc7c1806a443342055ed2f71/Database%20model/DatabaseModel.xml) <br/>
-[.JPG file](https://github.com/OSS-Java-Seminar/CompanyManagement/blob/8bf454a310550fec4473da8eda5fe684eb9ed7e2/Database%20model/DatabaseModel.jpg)
+[.JPG file](https://github.com/OSS-Java-Seminar/CompanyManagement/blob/d985d41b30967c78ae1f5b382d6846ed59ba7c82/Database%20model/DatabaseModel.jpg)
 
 ## Authors
 [Vesna Šimundić Bendić](https://github.com/Vesna0305) <br/>
