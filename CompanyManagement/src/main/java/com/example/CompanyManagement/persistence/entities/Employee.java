@@ -3,6 +3,7 @@ package com.example.CompanyManagement.persistence.entities;
 import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import java.util.List;
 
 @Setter
 @Getter
@@ -14,5 +15,11 @@ public class Employee {
     String surname;
     long oib;
     String address;
-    int workplaceId;
+    int roleId;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "Id")
+    private Role role;
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Invoice> invoices;
 }

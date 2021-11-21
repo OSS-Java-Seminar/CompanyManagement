@@ -3,19 +3,13 @@ package com.example.CompanyManagement.persistence.entities;
 import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
 public class Invoice {
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "p_details_invoice_id", nullable = false)
     @Id
-    private PaymentDetails pDetails;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "pDetails_FK")
     @GeneratedValue(strategy = GenerationType.AUTO)
     int invoiceNumber;
     float totalAmount;
@@ -24,7 +18,18 @@ public class Invoice {
     int vat;
     float discount;
     String paymentStatus;
+    String paymentMethod;
     int customerId;
     int employeeId;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "Id")
+    private Customer customer;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "Id")
+    private Employee employee;
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<InvoiceItem> invoiceitems;
+
 }
 

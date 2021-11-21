@@ -3,6 +3,7 @@ package com.example.CompanyManagement.persistence.entities;
 import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.*;
+import java.util.List;
 
 @Setter
 @Getter
@@ -15,7 +16,9 @@ public class Customer {
     String oib;
     String address;
     String telephone;
-    //int postalCode;
     String city;
     int paymentId;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Invoice> invoices;
 }
