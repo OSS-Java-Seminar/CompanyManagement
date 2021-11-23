@@ -1,8 +1,8 @@
 package com.example.CompanyManagement.persistence.entities;
 
-import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import javax.persistence.*;
 import java.util.List;
 
 @Setter
@@ -11,10 +11,16 @@ import java.util.List;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+
+    @Column(length = 35, nullable = false, unique = false)
     String name;
+    @Column(length = 35, nullable = false, unique = false)
     String surname;
+    @Column(length = 11, nullable = false, unique = true)
     long oib;
+    @Column(length = 50, nullable = true, unique = false)
     String address;
+    @Column(name = "role_id", nullable = false, unique = true)
     int roleId;
 
     @ManyToOne(fetch = FetchType.EAGER)

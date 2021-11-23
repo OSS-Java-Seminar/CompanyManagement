@@ -9,8 +9,11 @@ import javax.persistence.*;
 
 
 public class InvoiceItem {
+    @Column(name = "invoice_id", nullable = false, unique = true)
     int InvoiceId;
+    @Column(name = "item_id", nullable = false, unique = true)
     int ItemId;
+    @Column(name = "quantity",  nullable = false, unique = false)
     int quantity;
 
     @ManyToOne(fetch = FetchType.EAGER)

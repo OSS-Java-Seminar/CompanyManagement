@@ -1,7 +1,7 @@
 package com.example.CompanyManagement.persistence.entities;
 
-import lombok.Setter;
 import lombok.Getter;
+import lombok.Setter;
 import javax.persistence.*;
 import java.util.List;
 
@@ -11,7 +11,10 @@ import java.util.List;
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+
+    @Column(nullable = false, unique = false)
     int price;
+    @Column(length = 50, nullable = false, unique = false)
     String name;
 
     @OneToMany(fetch = FetchType.LAZY)

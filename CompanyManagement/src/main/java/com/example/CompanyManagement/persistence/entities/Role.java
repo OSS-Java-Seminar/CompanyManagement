@@ -11,6 +11,8 @@ import java.util.List;
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+
+    @Column(name = "role_name", length = 20, nullable = false, unique = true)
     String roleName;
 
     @OneToMany(fetch = FetchType.EAGER)
