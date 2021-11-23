@@ -1,4 +1,4 @@
-package com.example.CompanyManagement.persistence.entities;
+package com.CompanyManagement.persistence.entities;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +8,7 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
-public class Customer {
+public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
@@ -17,16 +17,15 @@ public class Customer {
     @Column(length = 35, nullable = false, unique = false)
     String surname;
     @Column(length = 11, nullable = false, unique = true)
-    String oib;
+    long oib;
     @Column(length = 50, nullable = true, unique = false)
     String address;
-    @Column(length = 35, nullable = true, unique = false)
-    String telephone;
-    @Column(length = 50, nullable = true, unique = false)
-    String city;
-    @Column(name = "payment_id", nullable = false, unique = true)
-    int paymentId;
+    @Column(name = "role_id", nullable = false, unique = true)
+    int roleId;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "Id")
+    private Role role;
     @OneToMany(fetch = FetchType.LAZY)
     private List<Invoice> invoices;
 }

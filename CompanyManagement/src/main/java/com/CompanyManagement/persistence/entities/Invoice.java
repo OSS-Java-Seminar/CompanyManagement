@@ -1,4 +1,4 @@
-package com.example.CompanyManagement.persistence.entities;
+package com.CompanyManagement.persistence.entities;
 
 import lombok.Getter;
 import lombok.Setter;
