@@ -1,4 +1,4 @@
-package com.CompanyManagement.persistence.model;
+package com.CompanyManagement.persistence;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

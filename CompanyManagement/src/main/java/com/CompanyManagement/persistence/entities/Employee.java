@@ -11,21 +11,26 @@ import java.util.List;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    int id;
 
-    @Column(length = 35, nullable = false, unique = false)
-    String name;
-    @Column(length = 35, nullable = false, unique = false)
+    @Column(name="employee_name",length = 35, nullable = false)
+    String employeeName;
+
+    @Column(length = 35, nullable = false)
     String surname;
+
     @Column(length = 11, nullable = false, unique = true)
     long oib;
-    @Column(length = 50, nullable = true, unique = false)
+
+    @Column(length = 50)
     String address;
+
     @Column(name = "role_id", nullable = false, unique = true)
     int roleId;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "Id")
+    @JoinColumn(name = "role_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Role role;
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
     private List<Invoice> invoices;
 }

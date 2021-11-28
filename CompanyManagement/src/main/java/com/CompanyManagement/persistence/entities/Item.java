@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -11,12 +12,15 @@ import java.util.List;
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    int id;
 
-    @Column(nullable = false, unique = false)
+    @Column(nullable = false)
     int price;
-    @Column(length = 50, nullable = false, unique = false)
-    String name;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<InvoiceItem> invoiceitems;
+    @Column(name = "item_name", length = 50, nullable = false)
+    String itemName;
+
+    @ManyToMany
+    Set<Invoice> invoices;
+
 }
