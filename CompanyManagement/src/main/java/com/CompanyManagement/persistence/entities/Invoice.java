@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.*;
 import java.util.Set;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -11,18 +12,18 @@ import java.util.Set;
 public class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    int id;
+    private UUID id;
 
-    @Column(name = "invoice_number", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     int invoiceNumber;
 
-    @Column(name = "total_amount", nullable = false)
+    @Column(nullable = false)
     float totalAmount;
 
-    @Column(name = "date_of_issue", length = 23, nullable = false)
+    @Column(length = 23, nullable = false)
     String dateOfIssue;
 
-    @Column(name = "due_date", length = 23, nullable = false)
+    @Column(length = 23, nullable = false)
     String dueDate;
 
     @Column(nullable = false)
@@ -31,17 +32,17 @@ public class Invoice {
     @Column()
     float discount;
 
-    @Column(name = "payment_status", length = 10, nullable = false)
+    @Column(length = 10, nullable = false)
     String paymentStatus;
 
-    @Column(name = "payment_method", length = 15, nullable = false)
+    @Column(length = 15, nullable = false)
     String paymentMethod;
 
     @Column(name = "customer_id", nullable = false)
-    int customerId;
+    private UUID customerId;
 
     @Column(name = "employee_id", nullable = false)
-    int employeeId;
+    private UUID employeeId;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id", referencedColumnName = "id", insertable = false, updatable = false)

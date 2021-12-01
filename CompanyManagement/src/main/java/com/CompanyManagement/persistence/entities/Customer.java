@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.*;
 import java.util.List;
+import java.util.UUID;
 
 @Setter
 @Getter
@@ -11,9 +12,9 @@ import java.util.List;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    int id;
+    private UUID id;
 
-    @Column(name = "customer_name", length = 35, nullable = false)
+    @Column(length = 35, nullable = false)
     String customerName;
 
     @Column(length = 35, nullable = false)
@@ -30,9 +31,6 @@ public class Customer {
 
     @Column(length = 50)
     String city;
-
-    @Column(name = "payment_id", nullable = false, unique = true)
-    int paymentId;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
     private List<Invoice> invoices;

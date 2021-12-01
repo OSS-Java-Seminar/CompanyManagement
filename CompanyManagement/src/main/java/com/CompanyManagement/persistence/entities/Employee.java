@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.*;
 import java.util.List;
+import java.util.UUID;
 
 @Setter
 @Getter
@@ -11,9 +12,9 @@ import java.util.List;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    int id;
+    private UUID id;
 
-    @Column(name="employee_name",length = 35, nullable = false)
+    @Column(length = 35, nullable = false)
     String employeeName;
 
     @Column(length = 35, nullable = false)
@@ -26,11 +27,12 @@ public class Employee {
     String address;
 
     @Column(name = "role_id", nullable = false, unique = true)
-    int roleId;
+    private UUID roleId;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Role role;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
     private List<Invoice> invoices;
 }

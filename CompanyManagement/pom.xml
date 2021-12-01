@@ -78,6 +78,18 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<!--<version>8.0.0</version>-->
+				<configuration>
+					<user>root</user>
+					<password>Pablo123</password>
+					<schemas>
+						<schema>companymanagementdb</schema>
+					</schemas>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
