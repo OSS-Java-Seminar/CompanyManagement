@@ -1,4 +1,18 @@
-CREATE TABLE `customer` (
+CREATE TABLE IF NOT EXISTS `role` (
+  `id` binary(255) NOT NULL,
+  `role_name` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_iubw515ff0ugtm28p8g3myt0h` (`role_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `item` (
+  `id` binary(255) NOT NULL,
+  `item_name` varchar(50) NOT NULL,
+  `price` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `customer` (
   `id` binary(255) NOT NULL,
   `address` varchar(50) DEFAULT NULL,
   `city` varchar(50) DEFAULT NULL,
@@ -10,7 +24,7 @@ CREATE TABLE `customer` (
   UNIQUE KEY `UK_l2ogjn7rtd593vcqwv9iiiq36` (`oib`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE `employee` (
+CREATE TABLE IF NOT EXISTS `employee` (
   `id` binary(255) NOT NULL,
   `address` varchar(50) DEFAULT NULL,
   `employee_name` varchar(35) NOT NULL,
@@ -23,7 +37,7 @@ CREATE TABLE `employee` (
   CONSTRAINT `FK3046kvjyysq288vy3lsbtc9nw` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE `invoice` (
+CREATE TABLE IF NOT EXISTS `invoice` (
   `id` binary(255) NOT NULL,
   `customer_id` binary(255) NOT NULL,
   `date_of_issue` varchar(23) NOT NULL,
@@ -43,7 +57,7 @@ CREATE TABLE `invoice` (
   CONSTRAINT `FKau92vqwrrlsflir3v65262ucw` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE `invoice_items` (
+CREATE TABLE IF NOT EXISTS `invoice_items` (
   `invoice_id` binary(255) NOT NULL,
   `items_id` binary(255) NOT NULL,
   PRIMARY KEY (`invoice_id`,`items_id`),
@@ -52,25 +66,12 @@ CREATE TABLE `invoice_items` (
   CONSTRAINT `FKoxy5jo4jluo0w69ncg5tsitn4` FOREIGN KEY (`invoice_id`) REFERENCES `invoice` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE `item` (
-  `id` binary(255) NOT NULL,
-  `item_name` varchar(50) NOT NULL,
-  `price` int NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE `item_invoices` (
+CREATE TABLE IF NOT EXISTS `item_invoices` (
   `item_id` binary(255) NOT NULL,
   `invoices_id` binary(255) NOT NULL,
   PRIMARY KEY (`item_id`,`invoices_id`),
   KEY `FKpk9jl0304q1o3nt89accbwuum` (`invoices_id`),
   CONSTRAINT `FKg2ju45kh9ciws3bbo7tnk0mx1` FOREIGN KEY (`item_id`) REFERENCES `item` (`id`),
   CONSTRAINT `FKpk9jl0304q1o3nt89accbwuum` FOREIGN KEY (`invoices_id`) REFERENCES `invoice` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-CREATE TABLE `role` (
-  `id` binary(255) NOT NULL,
-  `role_name` varchar(20) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `UK_iubw515ff0ugtm28p8g3myt0h` (`role_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
