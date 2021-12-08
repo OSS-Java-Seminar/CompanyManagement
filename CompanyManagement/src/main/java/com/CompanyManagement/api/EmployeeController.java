@@ -13,7 +13,6 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
-    //GET
     @GetMapping(value = "/message")
     public String getMessage(){
         return "Hi controller";

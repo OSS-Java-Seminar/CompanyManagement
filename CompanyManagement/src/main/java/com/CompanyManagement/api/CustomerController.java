@@ -1,15 +1,15 @@
 package com.CompanyManagement.api;
 
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.CompanyManagement.persistence.entities.Customer;
+import com.CompanyManagement.service.CustomerService;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
-@RequestMapping
+@RequestMapping("/customer")
 public class CustomerController {
 
-    /*@Autowired
-    private CustomerService customerService;*/
+    @Autowired
+    private CustomerService customerService;
 
 }
