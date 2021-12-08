@@ -13,16 +13,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/customer")
 public class CustomerController {
 
-    
+
     @Autowired
     private CustomerService customerService;
-    
-    @PostMapping//POST=CREATE
-    public void TestCreate(@RequestBody Customer c)
-    {
+
+    @PostMapping
+    public void TestCreate(@RequestBody Customer c) {
         customerService.TestCreate(c);
     }
-    }
+
+
+
+}
     
 
 
