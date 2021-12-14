@@ -3,5 +3,7 @@ package com.CompanyManagement.persistence.repositories;
 import com.CompanyManagement.persistence.entities.Item;
 import org.springframework.data.repository.CrudRepository;
 
-public interface ItemRepository extends CrudRepository<Item, Long> {
+import java.util.UUID;
+
+public interface ItemRepository extends CrudRepository<Item, UUID> {
 }

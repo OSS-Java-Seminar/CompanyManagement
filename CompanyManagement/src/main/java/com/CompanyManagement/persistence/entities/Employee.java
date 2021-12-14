@@ -31,7 +31,7 @@ public class Employee {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id", referencedColumnName = "id", insertable = false, updatable = false)
-    private Role role;
+    private UserRole role;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
     private List<Invoice> invoices;

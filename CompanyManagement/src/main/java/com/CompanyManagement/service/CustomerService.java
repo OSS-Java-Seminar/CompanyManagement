@@ -11,6 +11,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomerService {
 
-    private CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
+
+    public void TestCreate(Customer c) {
+        customerRepository.save(c);
+    }
 
 }

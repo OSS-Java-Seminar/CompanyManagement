@@ -9,7 +9,7 @@ import java.util.UUID;
 @Setter
 @Getter
 @Entity
-public class Role {
+public class UserRole {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
