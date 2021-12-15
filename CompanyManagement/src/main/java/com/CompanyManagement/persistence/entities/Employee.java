@@ -2,6 +2,8 @@ package com.CompanyManagement.persistence.entities;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
@@ -12,6 +14,7 @@ import java.util.UUID;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Type(type = "uuid-char")
     private UUID id;
 
     @Column(length = 35, nullable = false)
@@ -31,7 +34,7 @@ public class Employee {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id", referencedColumnName = "id", insertable = false, updatable = false)
-    private Role role;
+    private UserRole role;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
     private List<Invoice> invoices;
