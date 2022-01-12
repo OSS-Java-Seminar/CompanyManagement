@@ -63,8 +63,6 @@ ALTER TABLE customer ADD CONSTRAINT uc_customer_oib UNIQUE (oib);
 
 ALTER TABLE employee ADD CONSTRAINT uc_employee_oib UNIQUE (oib);
 
-ALTER TABLE employee ADD CONSTRAINT uc_employee_role UNIQUE (role_id);
-
 ALTER TABLE invoice ADD CONSTRAINT uc_invoice_invoicenumber UNIQUE (invoice_number);
 
 ALTER TABLE user_role ADD CONSTRAINT uc_userrole_rolename UNIQUE (role_name);

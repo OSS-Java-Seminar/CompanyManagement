@@ -3,6 +3,7 @@ package com.CompanyManagement.persistence.entities;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -14,7 +15,7 @@ import java.util.UUID;
 @Entity
 public class Customer {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Type(type = "uuid-char")
     private UUID id;
 

@@ -2,6 +2,7 @@ package com.CompanyManagement.persistence.entities;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -20,6 +21,6 @@ public class UserRole {
     @Column(length = 20, nullable = false, unique = true)
     String roleName;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "role")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "userRole")
     private List<Employee> employees;
 }
