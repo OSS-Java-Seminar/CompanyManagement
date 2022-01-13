@@ -10,5 +10,5 @@ import org.springframework.stereotype.Service;
 @Service
 public class ItemService {
 
-    private final ItemRepository itemRepository;
+        private final ItemRepository itemRepository;
 }

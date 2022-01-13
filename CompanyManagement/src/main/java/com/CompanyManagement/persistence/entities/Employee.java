@@ -2,7 +2,6 @@ package com.CompanyManagement.persistence.entities;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -30,6 +29,11 @@ public class Employee {
     @Column(length = 50)
     String address;
 
+    @Column(unique = true)
+    String email;
+
+    @Column()
+    String passwd;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "role_id")
