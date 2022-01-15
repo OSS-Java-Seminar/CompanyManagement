@@ -10,5 +10,5 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserRoleService {
 
-    private final UserRoleRepository UserRoleRepository;
+    private final UserRoleRepository userRoleRepository;
 }

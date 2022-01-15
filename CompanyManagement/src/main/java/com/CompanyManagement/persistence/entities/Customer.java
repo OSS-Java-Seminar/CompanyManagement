@@ -26,7 +26,7 @@ public class Customer {
     String surname;
 
     @Column(length = 11, nullable = false, unique = true)
-    String oib;
+    long oib;
 
     @Column(length = 50)
     String address;

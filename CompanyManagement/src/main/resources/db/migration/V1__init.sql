@@ -2,7 +2,7 @@ CREATE TABLE customer (
   id char(36) NOT NULL,
   customer_name VARCHAR(35) NOT NULL,
   surname VARCHAR(35) NOT NULL,
-  oib VARCHAR(11) NOT NULL,
+  oib BIGINT NOT NULL,
   address VARCHAR(50) NULL,
   telephone VARCHAR(35) NULL,
   city VARCHAR(50) NULL,

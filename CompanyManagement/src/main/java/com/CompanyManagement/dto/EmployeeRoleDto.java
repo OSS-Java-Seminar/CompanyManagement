@@ -6,6 +6,7 @@ import java.util.UUID;
 
 @Data
 public class EmployeeRoleDto {
+
     private UUID employeeId;
     private String firstName;
     private String lastName;

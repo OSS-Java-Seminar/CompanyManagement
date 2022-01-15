@@ -36,31 +36,27 @@ public class CompanyManagementApplication implements CommandLineRunner {
 		Employee employee1 = new Employee();
 		employee1.setEmployeeName("Marin");
 		employee1.setSurname("Visković");
-		employee1.setAddress("MalaUlica 59");
-		employee1.setOib(98309825);
+		employee1.setAddress("Karamanova 8");
+		employee1.setOib(18309500041L);
 		employee1.setUserRole(userRole1);
 		employeeRepository.save(employee1);
 
 		Employee employee2 = new Employee();
 		employee2.setEmployeeName("Vesna");
-		employee2.setSurname("Simundic-Bendic");
-		employee2.setAddress("MalaUlicaw 59");
-		employee2.setOib(98309821);
+		employee2.setSurname("Šimundić Bendić");
+		employee2.setAddress("Matoševa 46");
+		employee2.setOib(41130982121L);
 		employee2.setUserRole(userRole2);
 		employeeRepository.save(employee2);
 
 		Employee employee3 = new Employee();
 		employee3.setEmployeeName("Josipa");
-		employee3.setSurname("...");
-		employee3.setAddress("MalaUlicav 59");
-		employee3.setOib(98309824);
+		employee3.setSurname("Tokić");
+		employee3.setAddress("Rendićeva 14");
+		employee3.setOib(32109824431L);
 		employee3.setUserRole(userRole2);
 		employeeRepository.save(employee3);
-
-
-
 	}
 
-
-
 }
+

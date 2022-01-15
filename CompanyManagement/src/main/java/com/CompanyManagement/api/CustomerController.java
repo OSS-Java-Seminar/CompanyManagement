@@ -3,10 +3,13 @@ package com.CompanyManagement.api;
 import com.CompanyManagement.persistence.entities.Customer;
 import com.CompanyManagement.service.CustomerService;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @AllArgsConstructor
-@RestController
+@Controller
 @RequestMapping("/customer")
 public class CustomerController {
 
@@ -16,4 +19,5 @@ public class CustomerController {
     public void TestCreate(@RequestBody Customer c) {
         customerService.TestCreate(c);
     }
+
 }
