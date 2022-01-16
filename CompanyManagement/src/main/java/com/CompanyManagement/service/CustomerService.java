@@ -32,15 +32,15 @@ public class CustomerService {
         customerRepository.deleteById(id);
     }
 
-    public void updateCustomer(Customer newcustomer, UUID id) {
+    public void updateCustomer(Customer newCustomer, UUID id) {
         var c = customerRepository.findById(id).orElse(null);
 
-        c.setCustomerName(newcustomer.getCustomerName());
-        c.setSurname(newcustomer.getSurname());
-        c.setOib(newcustomer.getOib());
-        c.setAddress(newcustomer.getAddress());
-        c.setTelephone(newcustomer.getTelephone());
-        c.setCity(newcustomer.getCity());
+        c.setCustomerName(newCustomer.getCustomerName());
+        c.setSurname(newCustomer.getSurname());
+        c.setOib(newCustomer.getOib());
+        c.setAddress(newCustomer.getAddress());
+        c.setTelephone(newCustomer.getTelephone());
+        c.setCity(newCustomer.getCity());
 
         customerRepository.save(c);
     }
