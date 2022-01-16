@@ -1,9 +1,8 @@
 package com.CompanyManagement.persistence.repositories;
 
 import com.CompanyManagement.persistence.entities.Invoice;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.UUID;
+public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
 
-public interface InvoiceRepository extends CrudRepository<Invoice, Long> {
 }
