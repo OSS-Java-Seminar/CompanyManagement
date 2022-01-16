@@ -10,7 +10,6 @@ import java.util.UUID;
 @Component
 public interface CustomerRepository extends JpaRepository<Customer, UUID> {
 
-   void deleteByOib(long oib);
    Customer findByOib(long oib);
 
 }
