@@ -1,17 +1,14 @@
 package com.CompanyManagement.persistence.repositories;
 
 import com.CompanyManagement.persistence.entities.Customer;
-import lombok.AllArgsConstructor;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.UUID;
 
 @Component
-public interface CustomerRepository extends CrudRepository<Customer, Long> {
+public interface CustomerRepository extends JpaRepository<Customer, UUID> {
 
-        Customer save (Customer newCustomer);
-
+   Customer findByOib(long oib);
 
 }
