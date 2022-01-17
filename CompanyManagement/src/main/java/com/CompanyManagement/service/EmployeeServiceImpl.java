@@ -50,14 +50,6 @@ public class EmployeeServiceImpl implements EmployeeService{
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getRoleName())).collect(Collectors.toList());
     }
 
-    public void assignRoleToEmployee(UUID employeeId, UUID roleId) {
-        var e = employeeRepository.findById(employeeId).orElse(null);
-        var role = userRoleRepository.findById(roleId).orElse(null);
-
-        e.setRoles((Collection<UserRole>) role);
-        employeeRepository.save(e);
-    }
-
     public Employee createEmployee(Employee employee) {
         return employeeRepository.save(employee);
     }

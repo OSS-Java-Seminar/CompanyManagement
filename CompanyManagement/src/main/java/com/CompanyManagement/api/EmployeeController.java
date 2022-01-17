@@ -1,11 +1,10 @@
 package com.CompanyManagement.api;
 
-import com.CompanyManagement.persistence.entities.Customer;
 import com.CompanyManagement.persistence.entities.Employee;
-import com.CompanyManagement.service.EmployeeService;
 import com.CompanyManagement.service.EmployeeServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,10 +12,11 @@ import java.util.UUID;
 
 @AllArgsConstructor
 @RestController
+@RequestMapping("/employee")
 public class EmployeeController {
+
     @Autowired
     private EmployeeServiceImpl employeeServiceImpl;
-
 
     @PostMapping
     public void createEmployee(@RequestBody Employee employee) {

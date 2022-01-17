@@ -6,9 +6,8 @@ import com.CompanyManagement.web.EmployeeRegistrationDto;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface EmployeeService extends UserDetailsService {
+
     Employee save(EmployeeRegistrationDto registrationDto);
-
-
 
 }
 
