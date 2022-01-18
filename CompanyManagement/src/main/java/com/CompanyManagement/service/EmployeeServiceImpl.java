@@ -2,10 +2,8 @@ package com.CompanyManagement.service;
 
 import com.CompanyManagement.persistence.entities.Employee;
 import com.CompanyManagement.persistence.entities.UserRole;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.UUID;
+
+import java.util.*;
 import java.util.stream.Collectors;
 
 import com.CompanyManagement.persistence.repositories.EmployeeRepository;
@@ -28,8 +26,9 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, UserRoleRepository userRoleRepository) {
         this.employeeRepository = employeeRepository;
+        this.userRoleRepository = userRoleRepository;
     }
 
     @Override
@@ -48,6 +47,7 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<UserRole> roles) {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getRoleName())).collect(Collectors.toList());
+
     }
 
     public Employee createEmployee(Employee employee) {
@@ -77,6 +77,17 @@ public class EmployeeServiceImpl implements EmployeeService{
         e.setPasswd(newEmployee.getPasswd());
 
         employeeRepository.save(e);
+    }
+
+    public void assignRoleToUser(UUID userId, UUID roleId) {
+        var employee = employeeRepository.findById(userId).orElse(null);
+        var role = userRoleRepository.findById(roleId).orElse(null);
+        var list = new ArrayList<UserRole>();
+
+        list.add(role);
+        employee.setRoles(list);
+
+        employeeRepository.save(employee);
     }
 
 }

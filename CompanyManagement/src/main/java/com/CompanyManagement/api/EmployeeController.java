@@ -18,6 +18,12 @@ public class EmployeeController {
     @Autowired
     private EmployeeServiceImpl employeeServiceImpl;
 
+    @PostMapping("/assign/{userId}/{roleId}")
+    public void assignRoleToUser(@PathVariable UUID userId, @PathVariable UUID roleId)
+    {
+        employeeServiceImpl.assignRoleToUser(userId, roleId);
+    }
+
     @PostMapping
     public void createEmployee(@RequestBody Employee employee) {
        employeeServiceImpl.createEmployee(employee);
