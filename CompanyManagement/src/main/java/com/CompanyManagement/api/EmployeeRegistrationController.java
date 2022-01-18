@@ -23,7 +23,6 @@ public class EmployeeRegistrationController {
             return new EmployeeRegistrationDto();
     }
 
-
     @GetMapping
     public String showRegistrationForm(){
         return "registration";
