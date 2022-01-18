@@ -1,11 +1,10 @@
 package com.CompanyManagement.api;
 
-import com.CompanyManagement.dto.EmployeeRoleDto;
-import com.CompanyManagement.persistence.entities.Customer;
 import com.CompanyManagement.persistence.entities.Employee;
-import com.CompanyManagement.service.EmployeeService;
+import com.CompanyManagement.service.EmployeeServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,38 +12,35 @@ import java.util.UUID;
 
 @AllArgsConstructor
 @RestController
+@RequestMapping("/employee")
 public class EmployeeController {
-    @Autowired
-    private EmployeeService employeeService;
 
-    @GetMapping("/employees-role")
-    public List<EmployeeRoleDto> getAllEmployeesRole(){
-        return employeeService.getAllEmployeesRole();
-    }
+    @Autowired
+    private EmployeeServiceImpl employeeServiceImpl;
 
     @PostMapping
     public void createEmployee(@RequestBody Employee employee) {
-       employeeService.createEmployee(employee);
+       employeeServiceImpl.createEmployee(employee);
     }
 
     @GetMapping
     public List<Employee> getEmployees() {
-        return employeeService.getEmployees();
+        return employeeServiceImpl.getEmployees();
     }
 
     @GetMapping("/{oib}")
     public Employee findEmployeeByOib(@PathVariable long oib) {
-        return employeeService.findEmployeeByOib(oib);
+        return employeeServiceImpl.findByOib(oib);
     }
 
     @DeleteMapping("/{id}")
     public void deleteEmployeeById(@PathVariable UUID id) {
-        employeeService.deleteEmployeeById(id);
+        employeeServiceImpl.deleteEmployeeById(id);
     }
 
     @PutMapping("/{id}")
     public void updateEmployee(@PathVariable UUID id, @RequestBody Employee employee) {
-        employeeService.updateEmployee(employee, id);
+        employeeServiceImpl.updateEmployee(employee, id);
     }
 
 }

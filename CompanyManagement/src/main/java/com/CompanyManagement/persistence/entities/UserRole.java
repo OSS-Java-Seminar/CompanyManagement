@@ -21,6 +21,11 @@ public class UserRole {
     @Column(length = 20, nullable = false, unique = true)
     String roleName;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "userRole")
-    private List<Employee> employees;
+    public UserRole() {
+    }
+
+    public UserRole(String roleName) {
+        this.roleName = roleName;
+    }
+
 }
