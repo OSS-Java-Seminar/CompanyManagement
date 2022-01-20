@@ -4,7 +4,6 @@ import com.CompanyManagement.persistence.entities.Employee;
 import com.CompanyManagement.service.EmployeeServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,12 +16,6 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeServiceImpl employeeServiceImpl;
-
-    @PostMapping("/assign/{userId}/{roleId}")
-    public void assignRoleToUser(@PathVariable UUID userId, @PathVariable UUID roleId)
-    {
-        employeeServiceImpl.assignRoleToUser(userId, roleId);
-    }
 
     @PostMapping
     public void createEmployee(@RequestBody Employee employee) {
@@ -48,5 +41,13 @@ public class EmployeeController {
     public void updateEmployee(@PathVariable UUID id, @RequestBody Employee employee) {
         employeeServiceImpl.updateEmployee(employee, id);
     }
+
+    @PostMapping("/assign/{userId}/{roleId}")
+    public void assignRoleToUser(@PathVariable UUID userId, @PathVariable UUID roleId)
+    {
+        employeeServiceImpl.assignRoleToUser(userId, roleId);
+    }
+
+
 
 }

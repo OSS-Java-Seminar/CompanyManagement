@@ -2,9 +2,13 @@ package com.CompanyManagement.persistence.entities;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -48,9 +52,18 @@ public class Invoice {
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "employee_id")
     private Employee employee;
+    /*fetch = FetchType.EAGER,*/
 
-    @ManyToMany
-    Set<Item> items;
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "invoice_items",
+            joinColumns = @JoinColumn(
+                    name = "invoice_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "item_id", referencedColumnName = "id"))
+
+    private List<Item> items;
 
 }
 

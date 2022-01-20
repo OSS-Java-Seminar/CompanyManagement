@@ -1,3 +1,9 @@
+CREATE TABLE category (
+  id char(36) NOT NULL,
+  category_name VARCHAR(255) NULL,
+  CONSTRAINT pk_category PRIMARY KEY (id)
+);
+
 CREATE TABLE customer (
   id char(36) NOT NULL,
   customer_name VARCHAR(35) NOT NULL,
@@ -37,21 +43,22 @@ CREATE TABLE invoice (
 
 CREATE TABLE invoice_items (
   invoice_id char(36) NOT NULL,
-  items_id char(36) NOT NULL,
-  CONSTRAINT pk_invoice_items PRIMARY KEY (invoice_id, items_id)
+  item_id char(36) NOT NULL,
+  CONSTRAINT pk_invoice_items PRIMARY KEY (invoice_id, item_id)
 );
 
 CREATE TABLE item (
   id char(36) NOT NULL,
-  price INT NOT NULL,
   item_name VARCHAR(50) NOT NULL,
+  price INT NOT NULL,
+  quantity INT NULL,
   CONSTRAINT pk_item PRIMARY KEY (id)
 );
 
-CREATE TABLE item_invoices (
+CREATE TABLE items_categories (
+  category_id char(36) NOT NULL,
   item_id char(36) NOT NULL,
-  invoices_id char(36) NOT NULL,
-  CONSTRAINT pk_item_invoices PRIMARY KEY (item_id, invoices_id)
+  CONSTRAINT pk_items_categories PRIMARY KEY (category_id, item_id)
 );
 
 CREATE TABLE user_role (
@@ -82,11 +89,11 @@ ALTER TABLE invoice ADD CONSTRAINT FK_INVOICE_ON_EMPLOYEE FOREIGN KEY (employee_
 
 ALTER TABLE invoice_items ADD CONSTRAINT fk_invite_on_invoice FOREIGN KEY (invoice_id) REFERENCES invoice (id);
 
-ALTER TABLE invoice_items ADD CONSTRAINT fk_invite_on_item FOREIGN KEY (items_id) REFERENCES item (id);
+ALTER TABLE invoice_items ADD CONSTRAINT fk_invite_on_item FOREIGN KEY (item_id) REFERENCES item (id);
 
-ALTER TABLE item_invoices ADD CONSTRAINT fk_iteinv_on_invoice FOREIGN KEY (invoices_id) REFERENCES invoice (id);
+ALTER TABLE items_categories ADD CONSTRAINT fk_itecat_on_category FOREIGN KEY (category_id) REFERENCES category (id);
 
-ALTER TABLE item_invoices ADD CONSTRAINT fk_iteinv_on_item FOREIGN KEY (item_id) REFERENCES item (id);
+ALTER TABLE items_categories ADD CONSTRAINT fk_itecat_on_item FOREIGN KEY (item_id) REFERENCES item (id);
 
 ALTER TABLE users_roles ADD CONSTRAINT fk_userol_on_employee FOREIGN KEY (user_id) REFERENCES employee (id);
 

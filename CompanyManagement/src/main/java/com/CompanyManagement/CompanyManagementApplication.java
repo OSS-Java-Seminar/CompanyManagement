@@ -1,10 +1,5 @@
 package com.CompanyManagement;
 
-import com.CompanyManagement.persistence.entities.Employee;
-import com.CompanyManagement.persistence.entities.UserRole;
-import com.CompanyManagement.persistence.repositories.EmployeeRepository;
-import com.CompanyManagement.persistence.repositories.UserRoleRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

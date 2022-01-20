@@ -17,7 +17,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
+@Transactional
 public class EmployeeServiceImpl implements EmployeeService{
 
     private EmployeeRepository employeeRepository;
@@ -34,6 +37,7 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Override
     public Employee save(EmployeeRegistrationDto registrationDto) {
         Employee employee = new Employee(registrationDto.getFirstName(), registrationDto.getLastName(), registrationDto.getOib(), registrationDto.getAddress(), registrationDto.getEmail(), passwordEncoder.encode(registrationDto.getPasswd()), Arrays.asList(new UserRole("ROLE_USER")));
+
         return employeeRepository.save(employee);
     }
 
