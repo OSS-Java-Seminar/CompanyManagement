@@ -12,7 +12,7 @@ Company management web application that manages everyday tasks related to invoic
 
 ## Features
 **• Invoice creation** <br/> &nbsp;&nbsp;&nbsp;- automatic generation: invoice number, invoice id and total invoice amount. <br/><br/> 
-**• Item search** <br/> &nbsp;&nbsp;&nbsp;- by item id, stock overview. <br/><br/>
+**• Item search** <br/> &nbsp;&nbsp;&nbsp;- by item id, by category, stock overview. <br/><br/>
 **• Issuance of invoice** <br/> &nbsp;&nbsp;&nbsp;- print invoice or send invoice by e-mail, issue R1 or regular invoice. <br/><br/>
 **• Invoice cancellation** <br/> &nbsp;&nbsp;&nbsp;- creating a cancellation invoice in case of return of the item. <br/><br/>
 **• Preparation of reports** <br/> &nbsp;&nbsp;&nbsp;- reports on daily/monthly turnover, repo. per item or per customer or total turnover. <br/><br/>
@@ -27,7 +27,7 @@ Company management web application that manages everyday tasks related to invoic
 * MySQL
 
 ## Database Model
-[.XML file](https://github.com/OSS-Java-Seminar/CompanyManagement/blob/dfe289d5b847ccb2bc7c1806a443342055ed2f71/Database%20model/DatabaseModel.xml) <br/>
+[.XML file](https://github.com/OSS-Java-Seminar/CompanyManagement/blob/1d3e50306016c08e4e150526e96a5fa4c6111c49/Database%20model/DatabaseModel.xml) <br/>
 [.JPG file](https://github.com/OSS-Java-Seminar/CompanyManagement/blob/49575361d6debbe337f4de987f3db300c16a6ca3/Database%20model/DatabaseModel.jpg)
 
 ## Authors
