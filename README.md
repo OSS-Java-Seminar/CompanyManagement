@@ -24,7 +24,7 @@ Company management web application that manages everyday tasks related to invoic
 * Bootstrap
 * ThymeLeaf
 * Spring Boot
-* SQLite/SQL Management Studio
+* MySQL
 
 ## Database Model
 [.XML file](https://github.com/OSS-Java-Seminar/CompanyManagement/blob/dfe289d5b847ccb2bc7c1806a443342055ed2f71/Database%20model/DatabaseModel.xml) <br/>
