@@ -17,7 +17,7 @@
     <div class="card">
         <div class="card-body">
             <div class="col-md-10">
-                <form action="#" th:action="@{/addCustomer}" th:object="${customer}" method="post">
+                <form action="#" th:action="@{/customers/addCustomer}" th:object="${customer}" method="post">
                     <div class="row">
                         <div class="form-group col-md-8">
                             <label for="customerName" class="col-form-label">Name</label> <input type="text" th:field="*{customerName}" class="form-control" id="customerName" placeholder="Name"> <span th:if="${#fields.hasErrors('customerName')}" th:errors="*{customerName}" class="text-danger"></span>
@@ -44,9 +44,7 @@
                         </div>
 
                         <div class="col-md-6">
-                            <button type="submit" class="btn btn-primary">Add Customer</button>
-                                <span><a href="/" th:href="@{/listOfCustomers}"></a></span>
-                            </a>
+                            <input type="submit" class="btn btn-primary" value="Add Customer">
                         </div>
 
                         <div class="form-group col-md-8"></div>

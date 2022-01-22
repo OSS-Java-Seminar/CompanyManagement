@@ -15,15 +15,15 @@ CREATE TABLE customer (
   CONSTRAINT pk_customer PRIMARY KEY (id)
 );
 
-CREATE TABLE employee (
+CREATE TABLE employees (
   id char(36) NOT NULL,
   employee_name VARCHAR(35) NOT NULL,
   surname VARCHAR(35) NOT NULL,
   oib BIGINT NOT NULL,
   address VARCHAR(50) NULL,
   email VARCHAR(255) NULL,
-  passwd VARCHAR(255) NULL,
-  CONSTRAINT pk_employee PRIMARY KEY (id)
+  passwd VARCHAR(255) NOT NULL,
+  CONSTRAINT pk_employees PRIMARY KEY (id)
 );
 
 CREATE TABLE invoice (
@@ -61,10 +61,10 @@ CREATE TABLE items_categories (
   CONSTRAINT pk_items_categories PRIMARY KEY (category_id, item_id)
 );
 
-CREATE TABLE user_role (
+CREATE TABLE roles (
   id char(36) NOT NULL,
   role_name VARCHAR(20) NOT NULL,
-  CONSTRAINT pk_userrole PRIMARY KEY (id)
+  CONSTRAINT pk_roles PRIMARY KEY (id)
 );
 
 CREATE TABLE users_roles (
@@ -75,17 +75,17 @@ CREATE TABLE users_roles (
 
 ALTER TABLE customer ADD CONSTRAINT uc_customer_oib UNIQUE (oib);
 
-ALTER TABLE employee ADD CONSTRAINT uc_employee_email UNIQUE (email);
+ALTER TABLE employees ADD CONSTRAINT uc_employees_email UNIQUE (email);
 
-ALTER TABLE employee ADD CONSTRAINT uc_employee_oib UNIQUE (oib);
+ALTER TABLE employees ADD CONSTRAINT uc_employees_oib UNIQUE (oib);
 
 ALTER TABLE invoice ADD CONSTRAINT uc_invoice_invoicenumber UNIQUE (invoice_number);
 
-ALTER TABLE user_role ADD CONSTRAINT uc_userrole_rolename UNIQUE (role_name);
+ALTER TABLE roles ADD CONSTRAINT uc_roles_rolename UNIQUE (role_name);
 
 ALTER TABLE invoice ADD CONSTRAINT FK_INVOICE_ON_CUSTOMER FOREIGN KEY (customer_id) REFERENCES customer (id);
 
-ALTER TABLE invoice ADD CONSTRAINT FK_INVOICE_ON_EMPLOYEE FOREIGN KEY (employee_id) REFERENCES employee (id);
+ALTER TABLE invoice ADD CONSTRAINT FK_INVOICE_ON_EMPLOYEE FOREIGN KEY (employee_id) REFERENCES employees (id);
 
 ALTER TABLE invoice_items ADD CONSTRAINT fk_invite_on_invoice FOREIGN KEY (invoice_id) REFERENCES invoice (id);
 
@@ -95,6 +95,6 @@ ALTER TABLE items_categories ADD CONSTRAINT fk_itecat_on_category FOREIGN KEY (c
 
 ALTER TABLE items_categories ADD CONSTRAINT fk_itecat_on_item FOREIGN KEY (item_id) REFERENCES item (id);
 
-ALTER TABLE users_roles ADD CONSTRAINT fk_userol_on_employee FOREIGN KEY (user_id) REFERENCES employee (id);
+ALTER TABLE users_roles ADD CONSTRAINT fk_userol_on_employee FOREIGN KEY (user_id) REFERENCES employees (id);
 
-ALTER TABLE users_roles ADD CONSTRAINT fk_userol_on_user_role FOREIGN KEY (role_id) REFERENCES user_role (id);
+ALTER TABLE users_roles ADD CONSTRAINT fk_userol_on_user_role FOREIGN KEY (role_id) REFERENCES roles (id);

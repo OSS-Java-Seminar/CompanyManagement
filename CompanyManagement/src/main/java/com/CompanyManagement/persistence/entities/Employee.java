@@ -2,18 +2,16 @@ package com.CompanyManagement.persistence.entities;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.Type;
+import org.springframework.security.core.userdetails.User;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Setter
 @Getter
 @Entity
+@Table(name = "employees")
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,11 +33,10 @@ public class Employee {
     @Column(unique = true)
     String email;
 
-    @Column()
+    @Column(nullable = false)
     String passwd;
 
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(
@@ -47,7 +44,7 @@ public class Employee {
             inverseJoinColumns = @JoinColumn(
                     name = "role_id", referencedColumnName = "id"))
 
-    private Collection< UserRole > roles;
+    private Collection<UserRole> roles;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
     private List<Invoice> invoices;
@@ -65,4 +62,13 @@ public class Employee {
         this.roles = roles;
     }
 
+    public void removeRole(UserRole userRole) {
+        this.getRoles().remove(userRole);
+        userRole.getEmployees().remove(this);
+    }
+    public void removeRoles() {
+        for (UserRole userRole : new HashSet<>(roles)) {
+            removeRole(userRole);
+        }
+    }
 }

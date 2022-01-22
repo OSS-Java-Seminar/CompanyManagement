@@ -11,6 +11,7 @@ import java.util.UUID;
 @Setter
 @Getter
 @Entity
+@Table(name = "customers")
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,5 +38,6 @@ public class Customer {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
     private List<Invoice> invoices;
+
 
 }
