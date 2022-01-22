@@ -1,7 +1,14 @@
+.card {
+    top: 50px;
+}
+
+.btn btn-primary {
+    color: #4f4397 !important;
+}
+
 html, body {
   margin: 0;
   height: 100%;
-  overflow: hidden
 }
 
 .main-container {
@@ -39,6 +46,8 @@ div p {
 }
 
 .topnav {
+    z-index: 1;
+    position: sticky;
     list-style: none;
     background: #2B2B2B;
     top: 0;

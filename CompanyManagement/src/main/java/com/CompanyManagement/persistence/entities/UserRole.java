@@ -7,11 +7,13 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Setter
 @Getter
 @Entity
+@Table(name = "roles")
 public class UserRole {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,11 +23,27 @@ public class UserRole {
     @Column(length = 20, nullable = false, unique = true)
     String roleName;
 
+    @ManyToMany(mappedBy = "roles")
+    private Set<Employee> employees;
+
     public UserRole() {
+    }
+
+    public UserRole(UUID id) {
+        this.id = id;
     }
 
     public UserRole(String roleName) {
         this.roleName = roleName;
     }
 
+    public UserRole(UUID id, String roleName) {
+        this.id = id;
+        this.roleName = roleName;
+    }
+
+    @Override
+    public String toString() {
+        return this.roleName;
+    }
 }

@@ -1,6 +1,5 @@
 package com.CompanyManagement.api;
 
-import com.CompanyManagement.persistence.entities.Customer;
 import com.CompanyManagement.persistence.entities.Item;
 import com.CompanyManagement.service.ItemService;
 import lombok.AllArgsConstructor;
@@ -34,6 +33,12 @@ public class ItemController {
     @PutMapping("/{id}")
     public void updateItem(@PathVariable UUID id, @RequestBody Item item) {
         itemService.updateItem(item, id);
+    }
+
+    @PostMapping("/assign/{itemId}/{categoryId}")
+    public void assignCategoryToItem(@PathVariable UUID itemId, @PathVariable UUID categoryId)
+    {
+        itemService.assignCategoryToItem(itemId, categoryId);
     }
 
 }

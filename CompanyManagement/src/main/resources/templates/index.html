@@ -20,7 +20,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 <body style="background-color:#1E1E1E;">
 <div class="topnav">
     <a class="active" href="#">Home</a>
-    <a href="#">Roles</a>
+    <a th:href="@{/employees/listOfEmployees}"> Roles</a>
     <a href="#">About</a>
     <!--admin if-->
     <div class="topnav-right">
@@ -32,7 +32,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 
 <div class="main-container">
     <div>
-        <a href="#">CUSTOMER DATA</a>
+        <a th:href="@{/customers/listOfCustomers}">CUSTOMER DATA</a>
         <br>.</br>
         <p>
             Create a new customer

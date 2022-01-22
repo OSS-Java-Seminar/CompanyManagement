@@ -10,6 +10,7 @@ import com.CompanyManagement.persistence.repositories.EmployeeRepository;
 import com.CompanyManagement.persistence.repositories.UserRoleRepository;
 import com.CompanyManagement.web.EmployeeRegistrationDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.annotation.Immutable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,20 +21,28 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmployeeServiceImpl implements EmployeeService{
 
+    @Autowired
     private EmployeeRepository employeeRepository;
+
+    @Autowired
     private UserRoleRepository userRoleRepository;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository, UserRoleRepository userRoleRepository) {
+
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
-        this.userRoleRepository = userRoleRepository;
+    }
+
+    @Override
+    public Collection<UserRole> listRoles() {
+        return userRoleRepository.findAll();
     }
 
     @Override
     public Employee save(EmployeeRegistrationDto registrationDto) {
-        Employee employee = new Employee(registrationDto.getFirstName(), registrationDto.getLastName(), registrationDto.getOib(), registrationDto.getAddress(), registrationDto.getEmail(), passwordEncoder.encode(registrationDto.getPasswd()), Arrays.asList(new UserRole("ROLE_USER")));
+        Employee employee = new Employee(registrationDto.getFirstName(), registrationDto.getLastName(), registrationDto.getOib(), registrationDto.getAddress(), registrationDto.getEmail(), passwordEncoder.encode(registrationDto.getPasswd()), Arrays.asList(new UserRole("ADMIN")));
         return employeeRepository.save(employee);
     }
 
@@ -47,7 +56,6 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<UserRole> roles) {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getRoleName())).collect(Collectors.toList());
-
     }
 
     public Employee createEmployee(Employee employee) {
@@ -62,8 +70,19 @@ public class EmployeeServiceImpl implements EmployeeService{
         return employeeRepository.findByOib(oib);
     }
 
-    public void deleteEmployeeById(UUID id) {
-        employeeRepository.deleteById(id);
+    @Override
+    public String deleteEmployee(UUID id) {
+        Optional<Employee> employee = employeeRepository.findById(id);
+        if (employee.isPresent()) {
+            employee.get().removeRoles();
+            employeeRepository.deleteById(employee.get().getId());
+            return "Employee with id: " + id + " deleted successfully!";
+        }
+        return null;
+    }
+
+    public Employee get(UUID id) {
+        return employeeRepository.findById(id).get();
     }
 
     public void updateEmployee(Employee newEmployee, UUID id) {
@@ -77,17 +96,6 @@ public class EmployeeServiceImpl implements EmployeeService{
         e.setPasswd(newEmployee.getPasswd());
 
         employeeRepository.save(e);
-    }
-
-    public void assignRoleToUser(UUID userId, UUID roleId) {
-        var employee = employeeRepository.findById(userId).orElse(null);
-        var role = userRoleRepository.findById(roleId).orElse(null);
-        var list = new ArrayList<UserRole>();
-
-        list.add(role);
-        employee.setRoles(list);
-
-        employeeRepository.save(employee);
     }
 
 }
