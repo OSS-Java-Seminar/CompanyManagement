@@ -6,7 +6,6 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -22,7 +21,7 @@ public class Item {
     String itemName;
 
     @Column(nullable = false)
-    int price;
+    float price;
 
     @Column()
     int quantity;
