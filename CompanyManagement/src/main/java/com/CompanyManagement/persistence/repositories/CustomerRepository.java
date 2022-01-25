@@ -9,6 +9,6 @@ import java.util.UUID;
 @Component
 public interface CustomerRepository extends JpaRepository<Customer, UUID> {
 
-   Customer findByOib(long oib);
+        Customer findByOib(long oib);
 
 }

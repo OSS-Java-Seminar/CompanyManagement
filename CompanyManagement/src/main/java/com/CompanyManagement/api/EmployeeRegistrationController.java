@@ -20,7 +20,7 @@ public class EmployeeRegistrationController {
 
     @ModelAttribute("employee")
     public EmployeeRegistrationDto registrationDto(){
-            return new EmployeeRegistrationDto();
+        return new EmployeeRegistrationDto();
     }
 
     @GetMapping

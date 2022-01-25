@@ -2,10 +2,6 @@ package com.CompanyManagement.service;
 
 import com.CompanyManagement.persistence.entities.Employee;
 import com.CompanyManagement.persistence.entities.UserRole;
-
-import java.util.*;
-import java.util.stream.Collectors;
-
 import com.CompanyManagement.persistence.repositories.EmployeeRepository;
 import com.CompanyManagement.persistence.repositories.UserRoleRepository;
 import com.CompanyManagement.web.EmployeeRegistrationDto;
@@ -17,6 +13,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService{

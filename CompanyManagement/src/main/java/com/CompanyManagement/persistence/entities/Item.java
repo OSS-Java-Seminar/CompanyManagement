@@ -5,7 +5,6 @@ import lombok.Setter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.UUID;
 
 @Getter
@@ -26,14 +25,14 @@ public class Item {
     @Column()
     int quantity;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
-            name = "items_categories",
+            name = "item_category",
             joinColumns = @JoinColumn(
                     name = "item_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
                     name = "category_id", referencedColumnName = "id"))
 
-    private Collection<Category> categories;
+    private Category category;
 
 }
