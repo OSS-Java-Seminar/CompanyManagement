@@ -5,11 +5,9 @@ import com.CompanyManagement.persistence.entities.UserRole;
 import com.CompanyManagement.persistence.repositories.EmployeeRepository;
 import com.CompanyManagement.service.EmployeeService;
 import com.CompanyManagement.service.EmployeeServiceImpl;
-import com.CompanyManagement.web.EmployeeRegistrationDto;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,10 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @AllArgsConstructor
 @Controller
@@ -45,7 +40,7 @@ public class EmployeeController {
     @GetMapping("listOfEmployees")
     public String viewHomePage(Model model){
         model.addAttribute("employees", employeeRepository.findAll());
-        return "home";
+        return "employee-list";
     }
     @GetMapping("ShowNewEmployeeForm")
     public String showNewEmployeeForm(Employee employee) {
@@ -57,7 +52,7 @@ public class EmployeeController {
         if(result.hasErrors()) {
             return "new_employee";
         }
-        Employee employee1 = new Employee(employee.getEmployeeName(), employee.getSurname(), employee.getOib(), employee.getAddress(), employee.getEmail(), passwordEncoder.encode(employee.getPasswd()), Arrays.asList(new UserRole("EMPLOYEE")));
+        Employee employee1 = new Employee(employee.getEmployeeName(), employee.getSurname(), employee.getOib(), employee.getAddress(), employee.getEmail(), passwordEncoder.encode(employee.getPasswd()), null);
         employeeRepository.save(employee1);
         return "redirect:listOfEmployees";
     }
@@ -74,7 +69,7 @@ public class EmployeeController {
         employeeRepository.save(employee);
         model.addAttribute("employees", employeeRepository.findAll());
         model.addAttribute("listRoles", listRoles);
-        return "home";
+        return "employee-list";
     }
 
     @GetMapping("edit/{id}")
@@ -93,7 +88,16 @@ public class EmployeeController {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid student Id:" + id));
         employeeService.deleteEmployee(id);
         model.addAttribute("employees", employeeRepository.findAll());
-        return "home";
+        return "employee-list";
+    }
+
+    @RequestMapping("search")
+    public String viewHomePage(Model model, @Param("keyword") String keyword) {
+        List<Employee> listEmployees = employeeServiceimpl.findBySurname(keyword);
+        model.addAttribute("listEmployees", listEmployees);
+        model.addAttribute("keyword", keyword);
+
+        return "employee-search";
     }
 
 }

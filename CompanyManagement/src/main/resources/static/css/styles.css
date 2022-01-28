@@ -1,5 +1,5 @@
 .card {
-    top: 50px;
+    top: 30px;
 }
 
 .btn btn-primary {
@@ -23,7 +23,7 @@ html, body {
   height: 350px;
 }
 
-div a {
+.main-container div a {
   color: #4f4397;
   background-color: #2B2B2B;
   padding: 15px 75px;
@@ -31,13 +31,13 @@ div a {
   text-decoration: none;
 }
 
-div a:hover {
+.main-container div a:hover {
   background-color: #404040;
   transition: ease .25s;
   color: #4f4397;
 }
 
-div p {
+.main-container div p {
     color: white;
 }
 

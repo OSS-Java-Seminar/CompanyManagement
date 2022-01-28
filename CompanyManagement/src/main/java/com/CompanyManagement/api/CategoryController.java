@@ -4,10 +4,11 @@ import com.CompanyManagement.persistence.entities.Category;
 import com.CompanyManagement.persistence.repositories.CategoryRepository;
 import com.CompanyManagement.service.CategoryService;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @AllArgsConstructor
 @RestController
@@ -27,8 +28,15 @@ public class CategoryController {
         return categoryService.getCategories();
     }
 
-    @GetMapping("/{categoryName}")
-    public Category findCategoryByName(@PathVariable String categoryName) {
+    @GetMapping("/name/{categoryName}")
+    public Category findByCategoryName(@PathVariable String categoryName) {
         return categoryService.findCategoryByName(categoryName);
     }
+
+    @GetMapping("/id/{categoryId}")
+    public Optional<Category> findCategoryById(@PathVariable UUID categoryId) {
+        return categoryService.findCategoryById(categoryId);
+    }
+
+
 }

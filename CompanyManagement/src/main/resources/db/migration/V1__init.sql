@@ -4,7 +4,7 @@ CREATE TABLE category (
   CONSTRAINT pk_category PRIMARY KEY (id)
 );
 
-CREATE TABLE customer (
+CREATE TABLE customers (
   id char(36) NOT NULL,
   customer_name VARCHAR(35) NOT NULL,
   surname VARCHAR(35) NOT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE customer (
   address VARCHAR(50) NULL,
   telephone VARCHAR(35) NULL,
   city VARCHAR(50) NULL,
-  CONSTRAINT pk_customer PRIMARY KEY (id)
+  CONSTRAINT pk_customers PRIMARY KEY (id)
 );
 
 CREATE TABLE employees (
@@ -50,7 +50,7 @@ CREATE TABLE invoice_items (
 CREATE TABLE item (
   id char(36) NOT NULL,
   item_name VARCHAR(50) NOT NULL,
-  price INT NOT NULL,
+  price FLOAT NOT NULL,
   quantity INT NULL,
   CONSTRAINT pk_item PRIMARY KEY (id)
 );
@@ -73,7 +73,7 @@ CREATE TABLE users_roles (
   CONSTRAINT pk_users_roles PRIMARY KEY (role_id, user_id)
 );
 
-ALTER TABLE customer ADD CONSTRAINT uc_customer_oib UNIQUE (oib);
+ALTER TABLE customers ADD CONSTRAINT uc_customers_oib UNIQUE (oib);
 
 ALTER TABLE employees ADD CONSTRAINT uc_employees_email UNIQUE (email);
 
@@ -83,7 +83,7 @@ ALTER TABLE invoice ADD CONSTRAINT uc_invoice_invoicenumber UNIQUE (invoice_numb
 
 ALTER TABLE roles ADD CONSTRAINT uc_roles_rolename UNIQUE (role_name);
 
-ALTER TABLE invoice ADD CONSTRAINT FK_INVOICE_ON_CUSTOMER FOREIGN KEY (customer_id) REFERENCES customer (id);
+ALTER TABLE invoice ADD CONSTRAINT FK_INVOICE_ON_CUSTOMER FOREIGN KEY (customer_id) REFERENCES customers (id);
 
 ALTER TABLE invoice ADD CONSTRAINT FK_INVOICE_ON_EMPLOYEE FOREIGN KEY (employee_id) REFERENCES employees (id);
 

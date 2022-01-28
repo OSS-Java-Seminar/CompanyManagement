@@ -3,6 +3,9 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http//www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http//www.thymeleaf.org ">
+
+<link th:rel="stylesheet" th:href="@{/css/styles.css}">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -14,21 +17,30 @@
 </head>
 
 <body>
+<div class="topnav">
+    <a class="active" href="http://localhost:8080/">Home</a>
+    <a th:href="@{/employees/listOfEmployees}">Employees</a>
+    <a href="#">About</a>
+    <!--admin if-->
+    <div class="topnav-right">
+        <a th:href="@{/logout}"> Logout </a>
+    </div>
+</div>
 <div class="container my-5">
-    <h3> Add Employee</h3>
     <div class="card">
         <div class="card-body">
             <div class="col-md-10">
                 <form action="#" th:action="@{/employees/add}" th:object="${employee}" method="post">
+                    <h3>Add Employee</h3>
                     <div class="row">
                         <div class="form-group col-md-8">
                             <label for="employeeName" class="col-form-label">First Name</label> <input type="text" th:field="*{employeeName}" class="form-control" id="employeeName" placeholder="First Name"> <span th:if="${#fields.hasErrors('employeeName')}" th:errors="*{employeeName}" class="text-danger"></span>
                         </div>
                         <div class="form-group col-md-8">
-                            <label for="surname" class="col-form-label">Last Name</label> <input type="text" th:field="*{surname}" class="form-control" id="surname" placeholder=" Last Name"> <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="text-danger"></span>
+                            <label for="surname" class="col-form-label">Last Name</label> <input type="text" th:field="*{surname}" class="form-control" id="surname" placeholder="Last Name"> <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="text-danger"></span>
                         </div>
                         <div class="form-group col-md-8">
-                            <label for="oib" class="col-form-label">Oib</label> <input type="text" th:field="*{oib}" class="form-control" id="oib" placeholder="Oib"> <span th:if="${#fields.hasErrors('oib')}" th:errors="*{oib}" class="text-danger"></span>
+                            <label for="oib" class="col-form-label">OIB</label> <input minlength="11" maxlength="11" type="text" th:field="*{oib}" class="form-control" id="oib" placeholder="oib"> <span th:if="${#fields.hasErrors('oib')}" th:errors="*{oib}" class="text-danger"></span>
                         </div>
                         <div class="form-group col-md-8">
                             <label for="address" class="col-form-label">Address</label> <input type="text" th:field="*{address}" class="form-control" id="address" placeholder="Address"> <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="text-danger"></span>

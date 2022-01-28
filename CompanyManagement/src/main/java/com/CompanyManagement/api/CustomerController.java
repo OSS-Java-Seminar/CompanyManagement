@@ -1,11 +1,14 @@
 package com.CompanyManagement.api;
 
 import com.CompanyManagement.persistence.entities.Customer;
-import com.CompanyManagement.persistence.entities.Employee;
 import com.CompanyManagement.persistence.repositories.CustomerRepository;
 import com.CompanyManagement.service.CustomerService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,11 +33,6 @@ public class CustomerController {
         this.customerRepository = customerRepository;
     }
 
-    @GetMapping("listOfCustomers")
-    public String getCustomers(Model model) {
-        model.addAttribute("customers", customerRepository.findAll());
-        return "customer-list";
-    }
 
     @GetMapping("signup")
     public String showSignUpForm(Customer customer) {
@@ -47,7 +45,7 @@ public class CustomerController {
             return "customer-add";
         }
         customerRepository.save(customer);
-        return "redirect:listOfCustomers";
+        return "redirect:page";
     }
 
     @GetMapping("edit/{id}")
@@ -55,20 +53,19 @@ public class CustomerController {
         Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid customer Id:" + id));
         model.addAttribute("customer", customer);
-        return "update-customer";
+        return " ";
     }
 
     @PostMapping("update/{id}")
     public String updateCustomer(@PathVariable("id") UUID id, @Valid Customer customer, BindingResult result,
-                                Model model) {
+                                 Model model) {
         if (result.hasErrors()) {
             customer.setId(id);
-            return "update-customer";
+            return "redirect:page";
         }
-
         customerRepository.save(customer);
         model.addAttribute("customers", customerRepository.findAll());
-        return "customer-list";
+        return "redirect:/customers/page";
     }
 
     @GetMapping("delete/{id}")
@@ -77,7 +74,34 @@ public class CustomerController {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid customer Id:" + id));
         customerService.deleteCustomerById(id);
         model.addAttribute("customers", customerRepository.findAll());
+        return "redirect:/customers/page";
+    }
+
+    @RequestMapping("search")
+    public String viewHomePage(Model model, @Param("keyword") String keyword) {
+        List<Customer> listCustomers = customerService.findBySurname(keyword);
+        model.addAttribute("listCustomers", listCustomers);
+        model.addAttribute("keyword", keyword);
+
+        return "customer-search";
+    }
+
+    @GetMapping("listOfCustomers")
+    public List<Customer> getCustomers(Model model) {
+        model.addAttribute("customers", customerRepository.findAll());
+
+        return customerService.getCustomers();
+    }
+
+    @GetMapping("page")
+    public String getCustomers(@PageableDefault(size = 2) Pageable pageable,
+                               Model model) {
+        Page<Customer> page = customerService.getCustomerPage(pageable);
+        model.addAttribute("page", page);
+        List<Customer> listCustomer = page.getContent();
+        model.addAttribute("listCustomer", listCustomer);
         return "customer-list";
     }
+
 
 }

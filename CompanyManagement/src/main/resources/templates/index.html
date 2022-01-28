@@ -1,9 +1,13 @@
+
+
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.thymeleaf.org ">
+      xmlns:security="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org "
+      >
 
 <link th:rel="stylesheet" th:href="@{/css/styles.css}">
 <link th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css}">
@@ -19,10 +23,15 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 
 <body style="background-color:#1E1E1E;">
 <div class="topnav">
-    <a class="active" href="#">Home</a>
-    <a th:href="@{/employees/listOfEmployees}"> Roles</a>
+    <a class="active" href="http://localhost:8080/">Home</a>
+
+    <security:authorize access="hasRole('ADMIN')">
+        <div>
+            <a th:href="@{/employees/listOfEmployees}">Employees</a>
+        </div>
+    </security:authorize>
+
     <a href="#">About</a>
-    <!--admin if-->
     <div class="topnav-right">
         <a th:href="@{/logout}"> Logout </a>
     </div>
@@ -32,7 +41,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 
 <div class="main-container">
     <div>
-        <a th:href="@{/customers/listOfCustomers}">CUSTOMER DATA</a>
+        <a th:href="@{/customers/page}">CUSTOMER DATA</a>
         <br>.</br>
         <p>
             Create a new customer

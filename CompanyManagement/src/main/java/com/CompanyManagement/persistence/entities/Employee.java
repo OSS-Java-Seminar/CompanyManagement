@@ -3,7 +3,6 @@ package com.CompanyManagement.persistence.entities;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
-import org.springframework.security.core.userdetails.User;
 
 import javax.persistence.*;
 import java.util.*;

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @AllArgsConstructor
 @Component
@@ -26,4 +28,9 @@ public class CategoryService {
     public Category findCategoryByName(String categoryName) {
         return categoryRepository.findByCategoryName(categoryName);
     }
+
+    public Optional<Category> findCategoryById(UUID categoryId) {
+        return categoryRepository.findById(categoryId);
+    }
+
 }

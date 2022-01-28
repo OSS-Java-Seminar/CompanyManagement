@@ -1,5 +1,6 @@
 package com.CompanyManagement.service;
 
+import com.CompanyManagement.persistence.entities.Customer;
 import com.CompanyManagement.persistence.entities.Employee;
 import com.CompanyManagement.persistence.entities.UserRole;
 
@@ -10,7 +11,6 @@ import com.CompanyManagement.persistence.repositories.EmployeeRepository;
 import com.CompanyManagement.persistence.repositories.UserRoleRepository;
 import com.CompanyManagement.web.EmployeeRegistrationDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.Immutable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -42,7 +42,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 
     @Override
     public Employee save(EmployeeRegistrationDto registrationDto) {
-        Employee employee = new Employee(registrationDto.getFirstName(), registrationDto.getLastName(), registrationDto.getOib(), registrationDto.getAddress(), registrationDto.getEmail(), passwordEncoder.encode(registrationDto.getPasswd()), Arrays.asList(new UserRole("ADMIN")));
+        Employee employee = new Employee(registrationDto.getFirstName(), registrationDto.getLastName(), registrationDto.getOib(), registrationDto.getAddress(), registrationDto.getEmail(), passwordEncoder.encode(registrationDto.getPasswd()), null);
         return employeeRepository.save(employee);
     }
 
@@ -96,6 +96,18 @@ public class EmployeeServiceImpl implements EmployeeService{
         e.setPasswd(newEmployee.getPasswd());
 
         employeeRepository.save(e);
+    }
+
+    public ArrayList<Employee> findBySurname(String keyword) {
+        var employees = employeeRepository.findAll();
+        var employeeList = new ArrayList<Employee>();
+
+        employees.forEach(e -> {
+            if(keyword.equalsIgnoreCase(e.getSurname())) {
+                employeeList.add(e);
+            }
+        });
+        return employeeList;
     }
 
 }

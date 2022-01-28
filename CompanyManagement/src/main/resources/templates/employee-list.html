@@ -4,6 +4,8 @@
       xmlns:th="http//www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http//www.thymeleaf.org ">
 
+<link th:rel="stylesheet" th:href="@{/css/styles.css}">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -17,7 +19,7 @@
 <body>
 <div class="topnav">
     <a class="active" href="http://localhost:8080/">Home</a>
-    <a href="#">Employees</a>
+    <a th:href="@{/employees/listOfEmployees}">Employees</a>
     <a href="#">About</a>
     <!--admin if-->
     <div class="topnav-right">
@@ -32,6 +34,17 @@
                     <a href="/employees/ShowNewEmployeeForm" class="btn btn-primary"><i
                             class="fas fa-user-plus ml-2"> Add Employee</i></a>
                 </p>
+                <div>
+                    <form th:action="@{/employees/search}">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Filter by surname" name="keyword" th:value="${keyword}"required/>
+                        &nbsp;
+                        <input type="submit" value="Search" class="btn btn-primary"/>
+                        &nbsp;
+                        <input type="button" value="Clear" id="btnClear" onclick="clearFilter()" class="btn btn-primary"/>
+                    </form>
+
+                </div>
                 <div class="col-md-10">
                     <h2 th:case="null">No Employees yet!</h2>
                     <div th:case="*">
