@@ -1,6 +1,5 @@
 package com.CompanyManagement.service;
 
-import com.CompanyManagement.persistence.entities.Customer;
 import com.CompanyManagement.persistence.entities.UserRole;
 import com.CompanyManagement.persistence.repositories.UserRoleRepository;
 import lombok.AllArgsConstructor;

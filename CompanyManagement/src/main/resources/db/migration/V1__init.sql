@@ -1,76 +1,76 @@
 CREATE TABLE category (
   id char(36) NOT NULL,
-  category_name VARCHAR(255) NULL,
-  CONSTRAINT pk_category PRIMARY KEY (id)
+   category_name VARCHAR(255) NULL,
+   CONSTRAINT pk_category PRIMARY KEY (id)
 );
 
 CREATE TABLE customers (
   id char(36) NOT NULL,
-  customer_name VARCHAR(35) NOT NULL,
-  surname VARCHAR(35) NOT NULL,
-  oib BIGINT NOT NULL,
-  address VARCHAR(50) NULL,
-  telephone VARCHAR(35) NULL,
-  city VARCHAR(50) NULL,
-  CONSTRAINT pk_customers PRIMARY KEY (id)
+   customer_name VARCHAR(35) NOT NULL,
+   surname VARCHAR(35) NOT NULL,
+   oib BIGINT NOT NULL,
+   address VARCHAR(50) NULL,
+   telephone VARCHAR(35) NULL,
+   city VARCHAR(50) NULL,
+   CONSTRAINT pk_customers PRIMARY KEY (id)
 );
 
 CREATE TABLE employees (
   id char(36) NOT NULL,
-  employee_name VARCHAR(35) NOT NULL,
-  surname VARCHAR(35) NOT NULL,
-  oib BIGINT NOT NULL,
-  address VARCHAR(50) NULL,
-  email VARCHAR(255) NULL,
-  passwd VARCHAR(255) NOT NULL,
-  CONSTRAINT pk_employees PRIMARY KEY (id)
+   employee_name VARCHAR(35) NOT NULL,
+   surname VARCHAR(35) NOT NULL,
+   oib BIGINT NOT NULL,
+   address VARCHAR(50) NULL,
+   email VARCHAR(255) NULL,
+   passwd VARCHAR(255) NOT NULL,
+   CONSTRAINT pk_employees PRIMARY KEY (id)
 );
 
 CREATE TABLE invoice (
   id char(36) NOT NULL,
-  invoice_number INT NOT NULL,
-  total_amount FLOAT NOT NULL,
-  date_of_issue VARCHAR(23) NOT NULL,
-  due_date VARCHAR(23) NOT NULL,
-  vat FLOAT NOT NULL,
-  discount FLOAT NULL,
-  payment_status VARCHAR(10) NOT NULL,
-  payment_method VARCHAR(15) NOT NULL,
-  customer_id char(36) NOT NULL,
-  employee_id char(36) NOT NULL,
-  CONSTRAINT pk_invoice PRIMARY KEY (id)
+   invoice_number INT NOT NULL,
+   total_amount FLOAT NOT NULL,
+   date_of_issue VARCHAR(23) NOT NULL,
+   due_date VARCHAR(23) NOT NULL,
+   vat FLOAT NOT NULL,
+   discount FLOAT NULL,
+   payment_status VARCHAR(10) NOT NULL,
+   payment_method VARCHAR(15) NOT NULL,
+   customer_id char(36) NOT NULL,
+   employee_id char(36) NOT NULL,
+   CONSTRAINT pk_invoice PRIMARY KEY (id)
 );
 
 CREATE TABLE invoice_items (
   invoice_id char(36) NOT NULL,
-  item_id char(36) NOT NULL,
-  CONSTRAINT pk_invoice_items PRIMARY KEY (invoice_id, item_id)
+   item_id char(36) NOT NULL,
+   CONSTRAINT pk_invoice_items PRIMARY KEY (invoice_id, item_id)
 );
 
 CREATE TABLE item (
   id char(36) NOT NULL,
-  item_name VARCHAR(50) NOT NULL,
-  price FLOAT NOT NULL,
-  quantity INT NULL,
-  CONSTRAINT pk_item PRIMARY KEY (id)
+   item_name VARCHAR(50) NOT NULL,
+   price INT NOT NULL,
+   quantity INT NULL,
+   CONSTRAINT pk_item PRIMARY KEY (id)
 );
 
 CREATE TABLE items_categories (
   category_id char(36) NOT NULL,
-  item_id char(36) NOT NULL,
-  CONSTRAINT pk_items_categories PRIMARY KEY (category_id, item_id)
+   item_id char(36) NOT NULL,
+   CONSTRAINT pk_items_categories PRIMARY KEY (category_id, item_id)
 );
 
 CREATE TABLE roles (
   id char(36) NOT NULL,
-  role_name VARCHAR(20) NOT NULL,
-  CONSTRAINT pk_roles PRIMARY KEY (id)
+   role_name VARCHAR(20) NOT NULL,
+   CONSTRAINT pk_roles PRIMARY KEY (id)
 );
 
 CREATE TABLE users_roles (
   role_id char(36) NOT NULL,
-  user_id char(36) NOT NULL,
-  CONSTRAINT pk_users_roles PRIMARY KEY (role_id, user_id)
+   user_id char(36) NOT NULL,
+   CONSTRAINT pk_users_roles PRIMARY KEY (role_id, user_id)
 );
 
 ALTER TABLE customers ADD CONSTRAINT uc_customers_oib UNIQUE (oib);

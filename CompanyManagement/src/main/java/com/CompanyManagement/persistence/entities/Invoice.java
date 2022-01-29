@@ -7,9 +7,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -66,4 +64,3 @@ public class Invoice {
     private List<Item> items;
 
 }
-

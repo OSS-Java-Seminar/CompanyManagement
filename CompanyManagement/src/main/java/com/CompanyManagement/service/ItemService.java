@@ -1,6 +1,5 @@
 package com.CompanyManagement.service;
 
-import com.CompanyManagement.persistence.entities.Category;
 import com.CompanyManagement.persistence.entities.Item;
 import com.CompanyManagement.persistence.repositories.CategoryRepository;
 import com.CompanyManagement.persistence.repositories.ItemRepository;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Component
@@ -26,6 +26,11 @@ public class ItemService {
 
         public List<Item> getItems() {
                 return (List<Item>) itemRepository.findAll();
+        }
+
+        public List<Item> getItems(String searchText) {
+                List<Item> items = itemRepository.findAll();
+                return items == null ? new ArrayList<>() : items.stream().filter(item -> item.getItemName().contains(searchText)).collect(Collectors.toList());
         }
 
         public void deleteItemById(UUID id) {
@@ -44,10 +49,8 @@ public class ItemService {
         public void assignCategoryToItem(UUID itemId, UUID categoryId) {
                 var item = itemRepository.findById(itemId).orElse(null);
                 var category = categoryRepository.findById(categoryId).orElse(null);
-                var list = new ArrayList<Category>();
 
-                list.add(category);
-                item.setCategories(list);
+                item.setCategory(category);
 
                 itemRepository.save(item);
         }
