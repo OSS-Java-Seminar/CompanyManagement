@@ -6,6 +6,8 @@ import com.CompanyManagement.persistence.repositories.ItemRepository;
 import com.CompanyManagement.service.ItemService;
 import com.CompanyManagement.web.SearchParams;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -41,12 +43,12 @@ public class ItemController {
         return itemService.getItems();
     }
 
-    @PostMapping("search")
+    /*@PostMapping("search")
     public String searchByItemName(Model model, SearchParams searchParams) {
         model.addAttribute("items", itemService.getItems(searchParams.getSearchText()));
         model.addAttribute("searchParams", searchParams);
         return "item-list";
-    }
+    }*/
 
     @GetMapping("listOfItems")
     public String getItems(Model model) {
@@ -61,9 +63,8 @@ public class ItemController {
             return "item-add";
         }
         itemRepository.save(item);
-        return "redirect:listOfItems";
+        return "redirect:/items/viewPage";
     }
-
 
     @DeleteMapping("/{id}")
     public void deleteItemById(@PathVariable UUID id) {
@@ -75,8 +76,8 @@ public class ItemController {
         Item item = itemRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid item Id:" + id));
         itemService.deleteItemById(id);
-        model.addAttribute("customers", itemRepository.findAll());
-        return "item-list";
+        model.addAttribute("items", itemRepository.findAll());
+        return "redirect:/items/viewPage";
     }
 
     @GetMapping("addItem")
@@ -86,10 +87,17 @@ public class ItemController {
         return "item-add";
     }
 
-
     @PutMapping("/{id}")
     public void updateItem(@PathVariable UUID id, @RequestBody Item item) {
         itemService.updateItem(item, id);
+    }
+
+    @GetMapping("edit/{id}")
+    public String showUpdateForm(@PathVariable("id") UUID id, Model model) {
+        Item item = itemRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid item Id:" + id));
+        model.addAttribute("item", item);
+        return "update-item";
     }
 
     @PostMapping("update/{id}")
@@ -97,18 +105,61 @@ public class ItemController {
                              Model model) {
         if (result.hasErrors()) {
             item.setId(id);
-            return "update-item";
+            return "redirect:viewPage";
         }
-
         itemRepository.save(item);
-        model.addAttribute("customers", itemRepository.findAll());
-        return "item-list";
+        model.addAttribute("items", itemRepository.findAll());
+        model.addAttribute("category", categoryRepository.findAll());
+        return "redirect:/items/viewPage";
     }
 
 
     @PostMapping("/assign/{itemId}/{categoryId}")
     public void assignCategoryToItem(@PathVariable UUID itemId, @PathVariable UUID categoryId) {
         itemService.assignCategoryToItem(itemId, categoryId);
+    }
+
+    //SEARCH
+    @RequestMapping("search")
+    public String findByItemNameIgnoreCaseAll(Model model, @Param("keyword") String keyword) {
+        List<Item> itemList = itemService.findByItemNameIgnoreCase(keyword);
+        model.addAttribute("itemList", itemList);
+        model.addAttribute("keyword", keyword);
+
+        return "item-search";
+    }
+
+    //PAGING
+    @RequestMapping("viewPage")
+    public String viewPage(Model model) {
+        return listByPage(model, 1, "price", "asc");
+    }
+
+    @GetMapping("/page/{pageNumber}")
+    public String listByPage(Model model,
+                             @PathVariable("pageNumber") int currentPage,
+                             @Param("sortField") String sortField,
+                             @Param("sortDir") String sortDir) {
+
+        Page<Item> page = itemService.listAll(currentPage, sortField, sortDir);
+        int totalElements = (int) page.getTotalElements();
+        int totalPages = page.getTotalPages();
+
+        List<Item> listItem = page.getContent();
+
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalElements", totalElements);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("listItem", listItem);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("sortDir", sortDir);
+
+        String reverseSortDir =sortDir.equals("asc") ? "desc" : "asc";
+        model.addAttribute("reverseSortDir", reverseSortDir);
+
+
+        return "item-list";
     }
 
 }

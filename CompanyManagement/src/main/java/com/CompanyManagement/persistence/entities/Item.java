@@ -22,19 +22,19 @@ public class Item {
     String itemName;
 
     @Column(nullable = false)
-    int price;
+    float price;
 
     @Column()
     int quantity;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
-            name = "items_categories",
+            name = "item_category",
             joinColumns = @JoinColumn(
                     name = "item_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
                     name = "category_id", referencedColumnName = "id"))
 
-    private Collection<Category> categories;
+    private Category category;
 
 }

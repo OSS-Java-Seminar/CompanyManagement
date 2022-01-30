@@ -1,13 +1,21 @@
 package com.CompanyManagement.service;
 
+import com.CompanyManagement.persistence.entities.Category;
+import com.CompanyManagement.persistence.entities.Customer;
 import com.CompanyManagement.persistence.entities.Item;
 import com.CompanyManagement.persistence.repositories.CategoryRepository;
 import com.CompanyManagement.persistence.repositories.ItemRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -53,6 +61,28 @@ public class ItemService {
                 item.setCategory(category);
 
                 itemRepository.save(item);
+        }
+
+        //SEARCH
+        public List<Item> findByItemNameIgnoreCase(@Pattern(regexp = "[A-Za-z]") String keyword) {
+                var items = itemRepository.findAll();
+                var itemList = new ArrayList<Item>();
+
+                items.forEach(i -> {
+                        if(i.getItemName().toLowerCase().contains(keyword)) {
+                                itemList.add(i);
+                        }
+                });
+                return itemList;
+        }
+
+
+        //PAGING&SORTING
+        public Page<Item> listAll(int pageNumber, String sortField, String sortDir) {
+                Sort sort = Sort.by("price");
+                sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+                Pageable pageable = PageRequest.of(pageNumber - 1, 2, sort);
+                return itemRepository.findAll(pageable);
         }
 
 }

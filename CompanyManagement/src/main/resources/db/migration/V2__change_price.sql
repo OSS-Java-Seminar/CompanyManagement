@@ -1,3 +1,0 @@
-ALTER TABLE item DROP COLUMN price;
-
-ALTER TABLE item ADD price FLOAT NOT NULL;

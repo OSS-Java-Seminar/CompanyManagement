@@ -66,7 +66,7 @@
                             <td th:text="${employees.surname}"></td>
                             <td th:text="${employees.oib}"></td>
                             <td th:text="${employees.email}"></td>
-                            <td th:text="${employees.userRole.roleName}"></td>
+                            <td th:text="${employees.userRole.roleName}"></td>????
                             <td><a th:href="@{/employees/edit/{id}(id=${employees.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>
                             <td><a th:href="@{/employees/delete/{id}(id=${employees.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
                         </tr>
