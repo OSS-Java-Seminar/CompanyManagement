@@ -1,11 +1,14 @@
 package com.CompanyManagement.service;
 
 import com.CompanyManagement.persistence.entities.Category;
+import com.CompanyManagement.persistence.entities.Customer;
 import com.CompanyManagement.persistence.repositories.CategoryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.Pattern;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -25,7 +28,7 @@ public class CategoryService {
         return (List<Category>) categoryRepository.findAll();
     }
 
-    public Category findCategoryByName(String categoryName) {
+    public Category findByCategoryName(String categoryName) {
         return categoryRepository.findByCategoryName(categoryName);
     }
 

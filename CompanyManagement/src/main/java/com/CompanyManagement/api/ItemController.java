@@ -1,8 +1,10 @@
 package com.CompanyManagement.api;
 
+import com.CompanyManagement.persistence.entities.Category;
 import com.CompanyManagement.persistence.entities.Item;
 import com.CompanyManagement.persistence.repositories.CategoryRepository;
 import com.CompanyManagement.persistence.repositories.ItemRepository;
+import com.CompanyManagement.service.CategoryService;
 import com.CompanyManagement.service.ItemService;
 import com.CompanyManagement.web.SearchParams;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +25,18 @@ import java.util.UUID;
 public class ItemController {
 
     private final ItemRepository itemRepository;
+    private final CategoryController categoryController;
     private final CategoryRepository categoryRepository;
     private final ItemService itemService;
+    private final CategoryService categoryService;
 
     @Autowired
-    public ItemController(ItemRepository itemRepository, CategoryRepository categoryRepository, ItemService itemService) {
+    public ItemController(ItemRepository itemRepository, CategoryController categoryController, CategoryRepository categoryRepository, ItemService itemService, CategoryService categoryService) {
         this.itemRepository = itemRepository;
+        this.categoryController = categoryController;
         this.categoryRepository = categoryRepository;
         this.itemService = itemService;
+        this.categoryService = categoryService;
     }
 
     @PostMapping
@@ -53,7 +59,6 @@ public class ItemController {
     @GetMapping("listOfItems")
     public String getItems(Model model) {
         model.addAttribute("items", itemRepository.findAll());
-        model.addAttribute("searchParams", new SearchParams());
         return "item-list";
     }
 
@@ -147,17 +152,18 @@ public class ItemController {
 
         List<Item> listItem = page.getContent();
 
+        model.addAttribute("items", itemRepository.findAll());
         model.addAttribute("currentPage", currentPage);
         model.addAttribute("totalElements", totalElements);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("listItem", listItem);
         model.addAttribute("sortField", sortField);
         model.addAttribute("sortDir", sortDir);
-        model.addAttribute("sortDir", sortDir);
 
         String reverseSortDir =sortDir.equals("asc") ? "desc" : "asc";
         model.addAttribute("reverseSortDir", reverseSortDir);
 
+        model.addAttribute("categories", categoryRepository.findAll());
 
         return "item-list";
     }

@@ -35,15 +35,8 @@ public class CategoryController {
         return "category-add";
     }
 
-    @GetMapping
-    public List<Category> getCategories() {
-        return categoryService.getCategories();
-    }
-
-    
-
     @GetMapping("/{categoryName}")
     public Category findCategoryByName(@PathVariable String categoryName) {
-        return categoryService.findCategoryByName(categoryName);
+        return categoryService.findByCategoryName(categoryName);
     }
 }

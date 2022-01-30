@@ -1,6 +1,7 @@
 package com.CompanyManagement.api;
 
 import com.CompanyManagement.service.EmployeeService;
+import com.CompanyManagement.service.EmployeeServiceImpl;
 import com.CompanyManagement.web.EmployeeRegistrationDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +30,11 @@ public class EmployeeRegistrationController {
     }
 
     @PostMapping
-    public String registerEmployeeAccount(@ModelAttribute("employee")EmployeeRegistrationDto registrationDto){
+    public String registerEmployeeAccount(@ModelAttribute("employee")EmployeeRegistrationDto registrationDto, String email){
+        var checkEmail = employeeService.emailExists(email);
+        if(checkEmail) {
+            return "redirect:/registration?failure";
+        }
         employeeService.save(registrationDto);
         return "redirect:/registration?success";
     }

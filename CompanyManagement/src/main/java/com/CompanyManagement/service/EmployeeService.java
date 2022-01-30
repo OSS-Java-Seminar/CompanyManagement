@@ -15,6 +15,7 @@ public interface EmployeeService extends UserDetailsService {
     public Employee get(UUID id);
     Employee save(EmployeeRegistrationDto registrationDto);
     public String deleteEmployee(UUID id);
+    public boolean emailExists(String email);
 
 
 

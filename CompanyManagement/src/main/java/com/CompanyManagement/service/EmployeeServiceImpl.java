@@ -110,4 +110,15 @@ public class EmployeeServiceImpl implements EmployeeService{
         return employeeList;
     }
 
+    public boolean emailExists(String email) {
+        var employees  = employeeRepository.findAll();
+
+        for(Employee e : employees) {
+            if(e.getEmail().equals(email)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
