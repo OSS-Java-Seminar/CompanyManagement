@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <link th:rel="stylesheet" th:href="@{/css/styles.css}">
 
@@ -15,7 +16,9 @@
 <body>
 <div class="topnav">
     <a class="active" href="http://localhost:8080/">Home</a>
-    <a th:href="@{/employees/listOfEmployees}">Employees</a>
+    <div sec:authorize="hasAnyAuthority('ADMIN')">
+        <a th:href="@{/employees/viewPage}">Employees</a>
+    </div>
     <a href="#">About</a>
     <!--admin if-->
     <div class="topnav-right">
@@ -41,12 +44,16 @@
                             <label for="quantity" class="col-form-label">Items In Stock</label> <input type="number" th:field="*{quantity}" class="form-control" id="quantity" placeholder="quantity"> <span th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}" class="text-danger"></span>
                         </div>
 
-                        <!--<div th:each="item : ${items}" class="form-group col-md-8">
-                            <label th:text="${item.category.categoryName}" for="item.category.categoryName" class="col-form-label">Category</label> <input type="text" th:field="*{item.category.categoryName}" class="form-control" id="item.category.categoryName" placeholder="Category"> <span th:if="${#fields.hasErrors('item.category.categoryName')}" th:errors="*{item.category.categoryName}" class="text-danger"></span>
-                        </div>-->
+                        <div class="form-group col-md-8">
+                            <label class="col-4 col-form-label">Categories: </label>
+                            <th:block th:each="Category: ${category}">
+                                <input type="radio" th:field="*{category}"
+                                       th:text="${Category.categoryName}" th:value="${Category.id}" class="m-2" />
+                            </th:block>
+                        </div>
 
                         <div class="form-group col-md-8">
-                            <input type="submit" class="btn btn-primary" value="Update Item">
+                            <input type="submit" class="btn btn-purple btn-sm" style="background-color:#4f4397;color:white" value="Update Item">
                         </div>
                     </div>
                 </form>

@@ -1,7 +1,5 @@
 package com.CompanyManagement.service;
 
-import com.CompanyManagement.persistence.entities.Category;
-import com.CompanyManagement.persistence.entities.Customer;
 import com.CompanyManagement.persistence.entities.Item;
 import com.CompanyManagement.persistence.repositories.CategoryRepository;
 import com.CompanyManagement.persistence.repositories.ItemRepository;
@@ -15,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -24,6 +21,7 @@ import java.util.stream.Collectors;
 @Component
 @Service
 public class ItemService {
+
 
         private final ItemRepository itemRepository;
         private final CategoryRepository categoryRepository;
@@ -39,6 +37,10 @@ public class ItemService {
         public List<Item> getItems(String searchText) {
                 List<Item> items = itemRepository.findAll();
                 return items == null ? new ArrayList<>() : items.stream().filter(item -> item.getItemName().contains(searchText)).collect(Collectors.toList());
+        }
+
+        public Item getItemById(UUID id) {
+                return itemRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid item Id:" + id));
         }
 
         public void deleteItemById(UUID id) {
@@ -81,8 +83,10 @@ public class ItemService {
         public Page<Item> listAll(int pageNumber, String sortField, String sortDir) {
                 Sort sort = Sort.by("price");
                 sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
-                Pageable pageable = PageRequest.of(pageNumber - 1, 2, sort);
+                Pageable pageable = PageRequest.of(pageNumber - 1, 3, sort);
                 return itemRepository.findAll(pageable);
         }
+
+
 
 }

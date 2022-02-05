@@ -2,6 +2,7 @@ package com.CompanyManagement.service;
 
 import com.CompanyManagement.persistence.entities.UserRole;
 import com.CompanyManagement.persistence.repositories.UserRoleRepository;
+import com.CompanyManagement.web.dto.UserRoleDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -15,24 +16,24 @@ import java.util.UUID;
 public class UserRoleService {
 
     private final UserRoleRepository userRoleRepository;
-
-    public UserRole createUserRole(UserRole userRole){
-        return userRoleRepository.save(userRole);
+    private final UserRoleDto userRoleDto;
+    public UserRole createUserRole(UserRoleDto userRole){
+        return (userRoleRepository.save(userRoleDto.ConvertDtoToEntity(userRole)));
     }
 
-    public List<UserRole> getUserRoles() {
-        return (List<UserRole>) userRoleRepository.findAll();
+    public List<UserRoleDto> getUserRoles() {
+        return  userRoleDto.ConvertEntityToDto(userRoleRepository.findAll());
     }
 
     public void deleteUserRoleById(UUID id) {
         userRoleRepository.deleteById(id);
     }
 
-    public void updateUserRole(UserRole newUserRole, UUID id) {
-        var role = userRoleRepository.findById(id).orElse(null);
+    public void updateUserRole(UserRoleDto newUserRole, UUID id) {
+        var role = userRoleDto.ConvertEntityToDto(userRoleRepository.findById(id).orElse(null));
 
         role.setRoleName(newUserRole.getRoleName());
 
-        userRoleRepository.save(role);
+        userRoleRepository.save(userRoleDto.ConvertDtoToEntity(role));
     }
 }

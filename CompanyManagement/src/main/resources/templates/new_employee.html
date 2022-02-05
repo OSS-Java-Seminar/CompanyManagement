@@ -2,7 +2,8 @@
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http//www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http//www.thymeleaf.org ">
+      xsi:schemaLocation="http//www.thymeleaf.org "
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <link th:rel="stylesheet" th:href="@{/css/styles.css}">
 
@@ -19,7 +20,9 @@
 <body>
 <div class="topnav">
     <a class="active" href="http://localhost:8080/">Home</a>
-    <a th:href="@{/employees/listOfEmployees}">Employees</a>
+    <div sec:authorize="hasAnyAuthority('ADMIN')">
+        <a th:href="@{/employees/viewPage}">Employees</a>
+    </div>
     <a href="#">About</a>
     <!--admin if-->
     <div class="topnav-right">
@@ -52,7 +55,7 @@
                             <label for="passwd" class="col-form-label">Password</label> <input type="text" th:field="*{passwd}" class="form-control" id="passwd" placeholder="Password"> <span th:if="${#fields.hasErrors('passwd')}" th:errors="*{passwd}" class="text-danger"></span>
                         </div>
                         <div class="col-md-6">
-                            <input type="submit" class="btn btn-primary" value="Add Employee">
+                            <input type="submit" class="btn btn-purple btn-sm" style="background-color:#4f4397;color:white" value="Add Employee">
                         </div>
 
                         <div class="form-group col-md-8"></div>

@@ -28,23 +28,17 @@ CREATE TABLE employees (
 
 CREATE TABLE invoice (
   id char(36) NOT NULL,
-  invoice_number INT NOT NULL,
-  total_amount FLOAT NOT NULL,
-  date_of_issue VARCHAR(23) NOT NULL,
-  due_date VARCHAR(23) NOT NULL,
-  vat FLOAT NOT NULL,
-  discount FLOAT NULL,
-  payment_status VARCHAR(10) NOT NULL,
-  payment_method VARCHAR(15) NOT NULL,
   customer_id char(36) NOT NULL,
   employee_id char(36) NOT NULL,
+  invoice_number INT NOT NULL,
+  total_amount FLOAT NOT NULL,
+  date_of_issue VARCHAR(255) NOT NULL,
+  due_date VARCHAR(255) NOT NULL,
+  vat FLOAT NOT NULL,
+  discount FLOAT NULL,
+  payment_status VARCHAR(255) NULL,
+  payment_method VARCHAR(255) NOT NULL,
   CONSTRAINT pk_invoice PRIMARY KEY (id)
-);
-
-CREATE TABLE invoice_items (
-  invoice_id char(36) NOT NULL,
-  item_id char(36) NOT NULL,
-  CONSTRAINT pk_invoice_items PRIMARY KEY (invoice_id, item_id)
 );
 
 CREATE TABLE item (
@@ -52,8 +46,16 @@ CREATE TABLE item (
   item_name VARCHAR(50) NOT NULL,
   price FLOAT NOT NULL,
   quantity INT NULL,
-  category_id char(36) NULL,
+  category_id char(36) NOT NULL,
   CONSTRAINT pk_item PRIMARY KEY (id)
+);
+
+CREATE TABLE items_invoices (
+  id BIGINT AUTO_INCREMENT NOT NULL,
+  amount INT NULL,
+  item_id char(36) NULL,
+  invoice_id char(36) NULL,
+  CONSTRAINT pk_items_invoices PRIMARY KEY (id)
 );
 
 CREATE TABLE roles (
@@ -82,11 +84,11 @@ ALTER TABLE invoice ADD CONSTRAINT FK_INVOICE_ON_CUSTOMER FOREIGN KEY (customer_
 
 ALTER TABLE invoice ADD CONSTRAINT FK_INVOICE_ON_EMPLOYEE FOREIGN KEY (employee_id) REFERENCES employees (id);
 
+ALTER TABLE items_invoices ADD CONSTRAINT FK_ITEMS_INVOICES_ON_INVOICE FOREIGN KEY (invoice_id) REFERENCES invoice (id);
+
+ALTER TABLE items_invoices ADD CONSTRAINT FK_ITEMS_INVOICES_ON_ITEM FOREIGN KEY (item_id) REFERENCES item (id);
+
 ALTER TABLE item ADD CONSTRAINT FK_ITEM_ON_CATEGORY FOREIGN KEY (category_id) REFERENCES category (id);
-
-ALTER TABLE invoice_items ADD CONSTRAINT fk_invite_on_invoice FOREIGN KEY (invoice_id) REFERENCES invoice (id);
-
-ALTER TABLE invoice_items ADD CONSTRAINT fk_invite_on_item FOREIGN KEY (item_id) REFERENCES item (id);
 
 ALTER TABLE users_roles ADD CONSTRAINT fk_userol_on_employee FOREIGN KEY (user_id) REFERENCES employees (id);
 

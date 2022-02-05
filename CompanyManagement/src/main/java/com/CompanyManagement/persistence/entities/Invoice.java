@@ -2,11 +2,11 @@ package com.CompanyManagement.persistence.entities;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,31 +19,7 @@ public class Invoice {
     @Type(type = "uuid-char")
     private UUID id;
 
-    @Column(nullable = false, unique = true)
-    int invoiceNumber;
-
-    @Column(nullable = false)
-    float totalAmount;
-
-    @Column(length = 23, nullable = false)
-    String dateOfIssue;
-
-    @Column(length = 23, nullable = false)
-    String dueDate;
-
-    @Column(nullable = false)
-    float vat;
-
-    @Column()
-    float discount;
-
-    @Column(length = 10, nullable = false)
-    String paymentStatus;
-
-    @Column(length = 15, nullable = false)
-    String paymentMethod;
-
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
@@ -52,15 +28,41 @@ public class Invoice {
     private Employee employee;
     /*fetch = FetchType.EAGER,*/
 
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "invoice_items",
-            joinColumns = @JoinColumn(
-                    name = "invoice_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "item_id", referencedColumnName = "id"))
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "invoice_id")
+    private List<ItemInvoice> items;
 
-    private List<Item> items;
+    @Column(nullable = false, unique = true)
+    private int invoiceNumber;
+
+    @Column(nullable = false)
+    private float totalAmount;
+
+    @Column(nullable = false)
+    private String dateOfIssue;
+
+    @Column(nullable = false)
+    private String dueDate;
+
+    @Column(nullable = false)
+    private float vat;
+
+    private float discount;
+
+    @Column(nullable = true)
+    private String paymentStatus;
+
+    @Column(nullable = false)
+    private String paymentMethod;
+
+    @PrePersist
+    protected void onCreate() {
+        this.vat = 25;
+        this.dateOfIssue = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        this.dueDate = LocalDateTime.now().plusDays(15).format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        float vatAmount = this.totalAmount * this.vat / 100;
+        float discountAmount = this.totalAmount * this.discount / 100;
+        this.totalAmount = this.totalAmount + vatAmount - discountAmount;
+    }
 
 }

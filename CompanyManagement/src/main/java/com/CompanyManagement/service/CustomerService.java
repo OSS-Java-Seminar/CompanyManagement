@@ -2,6 +2,7 @@ package com.CompanyManagement.service;
 
 import com.CompanyManagement.persistence.entities.Customer;
 import com.CompanyManagement.persistence.repositories.CustomerRepository;
+import com.CompanyManagement.web.dto.CustomerDto;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -21,13 +23,19 @@ import java.util.UUID;
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
+    private final CustomerDto customerDto;
 
-    public Customer createCustomer(Customer customer){
-        return customerRepository.save(customer);
+    public Customer createCustomer(CustomerDto customer){
+        return customerRepository.save(customerDto.ConvertDtoToEntity(customer));
     }
 
-    public List<Customer> getCustomers() {
-        return (List<Customer>) customerRepository.findAll();
+    public List<CustomerDto> getCustomers() {
+        List<Customer> customers = customerRepository.findAll();
+        return customerDto.ConvertEntityToDto(customers);
+    }
+
+    public Optional<Customer> getCustomerById(UUID id) {
+        return customerRepository.findById(id);
     }
 
     public Customer findCustomerByOib(long oib) {
@@ -38,7 +46,7 @@ public class CustomerService {
         customerRepository.deleteById(id);
     }
 
-    public void updateCustomer(Customer newCustomer, UUID id) {
+    public void updateCustomer(CustomerDto newCustomer, UUID id) {
         var c = customerRepository.findById(id).orElse(null);
 
         c.setCustomerName(newCustomer.getCustomerName());
@@ -63,14 +71,6 @@ public class CustomerService {
         });
         return customerList;
     }
-
-    /*public Page<Customer> getCustomerPage(Pageable pageable) {
-        return customerRepository.findAll(pageable);
-    }
-
-    public List<Customer> findAllByOrderBySurnameAsc() {
-        return customerRepository.findAllByOrderBySurnameAsc(Sort.by(Sort.Direction.ASC, "surname"));
-    }*/
 
     //NOVI PAGING&SORTING
     public Page<Customer> listAll(int pageNumber, String sortField, String sortDir) {

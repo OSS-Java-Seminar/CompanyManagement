@@ -6,7 +6,9 @@ import com.CompanyManagement.persistence.repositories.CategoryRepository;
 import com.CompanyManagement.persistence.repositories.ItemRepository;
 import com.CompanyManagement.service.CategoryService;
 import com.CompanyManagement.service.ItemService;
+import com.CompanyManagement.util.MapperUtils;
 import com.CompanyManagement.web.SearchParams;
+import com.CompanyManagement.web.dto.ItemDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
@@ -16,13 +18,17 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 @Controller
+@SessionAttributes({"categories"})
 @RequestMapping("/items/")
 public class ItemController {
+
 
     private final ItemRepository itemRepository;
     private final CategoryController categoryController;
@@ -49,17 +55,19 @@ public class ItemController {
         return itemService.getItems();
     }
 
-    /*@PostMapping("search")
-    public String searchByItemName(Model model, SearchParams searchParams) {
-        model.addAttribute("items", itemService.getItems(searchParams.getSearchText()));
-        model.addAttribute("searchParams", searchParams);
-        return "item-list";
-    }*/
-
     @GetMapping("listOfItems")
-    public String getItems(Model model) {
+    public List<Item> getItems(Category category, Model model) {
+        List<Category> listCategories = categoryService.getCategories();
+        model.addAttribute("listCategories", listCategories);
         model.addAttribute("items", itemRepository.findAll());
-        return "item-list";
+        return itemService.getItems();
+    }
+
+    @GetMapping("addItem")
+    public String addItem(Model model) {
+        model.addAttribute("item", new Item());
+        model.addAttribute("categories", categoryRepository.findAllByOrderByCategoryNameAsc());
+        return "item-add";
     }
 
     @PostMapping("addItem")
@@ -68,7 +76,7 @@ public class ItemController {
             return "item-add";
         }
         itemRepository.save(item);
-        return "redirect:/items/viewPage";
+        return "redirect:viewPage";
     }
 
     @DeleteMapping("/{id}")
@@ -80,16 +88,9 @@ public class ItemController {
     public String deleteItem(@PathVariable("id") UUID id, Model model) {
         Item item = itemRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid item Id:" + id));
-        itemService.deleteItemById(id);
+        itemRepository.delete(item);
         model.addAttribute("items", itemRepository.findAll());
         return "redirect:/items/viewPage";
-    }
-
-    @GetMapping("addItem")
-    public String addItem(Model model) {
-        model.addAttribute("item", new Item());
-        model.addAttribute("categories", categoryRepository.findAll());
-        return "item-add";
     }
 
     @PutMapping("/{id}")
@@ -102,6 +103,7 @@ public class ItemController {
         Item item = itemRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid item Id:" + id));
         model.addAttribute("item", item);
+        model.addAttribute("category", categoryRepository.findAll());
         return "update-item";
     }
 
@@ -118,17 +120,16 @@ public class ItemController {
         return "redirect:/items/viewPage";
     }
 
-
     @PostMapping("/assign/{itemId}/{categoryId}")
     public void assignCategoryToItem(@PathVariable UUID itemId, @PathVariable UUID categoryId) {
         itemService.assignCategoryToItem(itemId, categoryId);
     }
 
     //SEARCH
-    @RequestMapping("search")
+    @RequestMapping("/search")
     public String findByItemNameIgnoreCaseAll(Model model, @Param("keyword") String keyword) {
-        List<Item> itemList = itemService.findByItemNameIgnoreCase(keyword);
-        model.addAttribute("itemList", itemList);
+        List<Item> listItems = itemService.findByItemNameIgnoreCase(keyword);
+        model.addAttribute("listItems", listItems);
         model.addAttribute("keyword", keyword);
 
         return "item-search";
@@ -167,5 +168,6 @@ public class ItemController {
 
         return "item-list";
     }
+
 
 }

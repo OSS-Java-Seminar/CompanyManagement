@@ -29,13 +29,7 @@ public class Item {
     int quantity;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "item_category",
-            joinColumns = @JoinColumn(
-                    name = "item_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "category_id", referencedColumnName = "id"))
-
+    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
 }

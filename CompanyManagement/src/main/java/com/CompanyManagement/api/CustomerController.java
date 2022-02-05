@@ -3,6 +3,7 @@ package com.CompanyManagement.api;
 import com.CompanyManagement.persistence.entities.Customer;
 import com.CompanyManagement.persistence.repositories.CustomerRepository;
 import com.CompanyManagement.service.CustomerService;
+import com.CompanyManagement.web.dto.CustomerDto;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,6 +26,8 @@ public class CustomerController {
 
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    private CustomerDto customerDto;
 
     @Autowired
     public CustomerController(CustomerRepository customerRepository) {
@@ -38,11 +41,11 @@ public class CustomerController {
     }
 
     @PostMapping("addCustomer")
-    public String addCustomer(@Valid Customer customer, BindingResult result, Model model) {
+    public String addCustomer(@Valid CustomerDto customer, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "customer-add";
         }
-        customerRepository.save(customer);
+        customerRepository.save(customerDto.ConvertDtoToEntity(customer));
         return "redirect:viewPage";
     }
 
@@ -50,7 +53,7 @@ public class CustomerController {
     public String showUpdateForm(@PathVariable("id") UUID id, Model model) {
         Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid customer Id:" + id));
-        model.addAttribute("customer", customer);
+        model.addAttribute("customer", customerDto.ConvertEntityToDto(customer));
         return "update-customer";
     }
 
@@ -75,44 +78,50 @@ public class CustomerController {
         return "redirect:/customers/viewPage";
     }
 
+    @RequestMapping("/viewPPage")
+    public String viewPPage(Model model, @Param("keyword")String keyword) {
+        return findBySurnameIgnoreCaseAll(model, keyword,1, "surname", "asc");
+    }
+
     @RequestMapping("search")
-    public String findBySurnameIgnoreCaseAll(Model model, @Param("keyword") String keyword) {
+    public String findBySurnameIgnoreCaseAll(Model model, @Param("keyword") String keyword,
+                                             @PathVariable("pageNumber") int currentPage,
+                                             @Param("sortField") String sortField,
+                                             @Param("sortDir") String sortDir) {
+
         List<Customer> listCustomers = customerService.findBySurnameIgnoreCase(keyword);
         model.addAttribute("listCustomers", listCustomers);
         model.addAttribute("keyword", keyword);
+
+        Page<Customer> page = customerService.listAll(currentPage, sortField, sortDir);
+        int totalElements = (int) page.getTotalElements();
+        int totalPages = page.getTotalPages();
+
+        listCustomers = page.getContent();
+
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalElements", totalElements);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("listCustomers", listCustomers);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("sortDir", sortDir);
+
+        String reverseSortDir =sortDir.equals("asc") ? "desc" : "asc";
+        model.addAttribute("reverseSortDir", reverseSortDir);
 
         return "customer-search";
     }
 
     @GetMapping("listOfCustomers")
-    public List<Customer> getCustomers(Model model) {
+    public List<CustomerDto> getCustomers(Model model) {
         model.addAttribute("customers", customerRepository.findAll());
 
         return customerService.getCustomers();
     }
 
-    /*@GetMapping("page")
-    public String getCustomers(@PageableDefault(size = 2) Pageable pageable,
-                               Model model) {
-        Page<Customer> page = customerService.getCustomerPage(pageable);
-        model.addAttribute("page", page);
-        List<Customer> listCustomer = page.getContent();
-        model.addAttribute("listCustomer", listCustomer);
-        return "customer-list";
-    }
-
-    @GetMapping("sort")
-    public String findAllByOrderBySurnameAsc(Model model) {
-        List<Customer> sorted = customerService.findAllByOrderBySurnameAsc();
-        model.addAttribute("sorted", sorted);
-        return "customer-list";
-    }*/
-
-    //SEARCH
-
-
     //NOVI PAGING&SORTING
-    @RequestMapping("viewPage")
+    @RequestMapping("/viewPage")
     public String viewPage(Model model) {
         return listByPage(model, 1, "surname", "asc");
     }

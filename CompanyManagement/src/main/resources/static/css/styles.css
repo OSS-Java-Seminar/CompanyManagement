@@ -1,9 +1,9 @@
-.card {
-    top: 30px;
+a {
+  color: hotpink;
 }
 
-.btn btn-primary {
-    color: #4f4397 !important;
+.card {
+    top: 30px;
 }
 
 html, body {
@@ -37,6 +37,10 @@ html, body {
   color: #4f4397;
 }
 
+.container my-5 a:hover  {
+    color: white;
+}
+
 .main-container div p {
     color: white;
 }
@@ -63,6 +67,12 @@ html, body {
     color: #4f4397;
     padding: 1em;
     display: block;
+}
+
+.topnav a:hover {
+    color: #757575;
+    text-decoration: none;
+
 }
 
 .navigation a:hover {

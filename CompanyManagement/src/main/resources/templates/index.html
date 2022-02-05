@@ -4,10 +4,9 @@
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:security="http://www.thymeleaf.org/extras/spring-security"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.thymeleaf.org "
-      >
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <link th:rel="stylesheet" th:href="@{/css/styles.css}">
 <link th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css}">
@@ -24,13 +23,9 @@
 <body style="background-color:#1E1E1E;">
 <div class="topnav">
     <a class="active" href="http://localhost:8080/">Home</a>
-
-    <security:authorize access="hasRole('ADMIN')">
-        <div>
-            <a th:href="@{/employees/listOfEmployees}">Employees</a>
-        </div>
-    </security:authorize>
-
+    <div sec:authorize="hasAnyAuthority('ADMIN')">
+        <a th:href="@{/employees/viewPage}">Employees</a>
+    </div>
     <a href="#">About</a>
     <div class="topnav-right">
         <a th:href="@{/logout}"> Logout </a>
@@ -61,7 +56,7 @@
         </p>
     </div>
     <div>
-        <a href="#">INVOICE CREATION</a>
+        <a th:href="@{/invoices/viewPage}">INVOICE CREATION</a>
         <br>.</br>
         <p>
             Add a new invoice
