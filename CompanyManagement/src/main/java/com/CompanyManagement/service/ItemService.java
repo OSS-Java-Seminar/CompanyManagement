@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -36,7 +37,7 @@ public class ItemService {
 
         public List<Item> getItems(String searchText) {
                 List<Item> items = itemRepository.findAll();
-                return items == null ? new ArrayList<>() : items.stream().filter(item -> item.getItemName().contains(searchText)).collect(Collectors.toList());
+                return items == null ? new ArrayList<>() : items.stream().filter(item -> item.getItemName().toLowerCase().contains(searchText.toLowerCase())).collect(Collectors.toList());
         }
 
         public Item getItemById(UUID id) {

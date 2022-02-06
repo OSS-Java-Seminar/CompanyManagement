@@ -3,6 +3,7 @@ package com.CompanyManagement.api;
 import com.CompanyManagement.exception.NotEnoughQuantityException;
 import com.CompanyManagement.persistence.entities.Invoice;
 import com.CompanyManagement.persistence.repositories.InvoiceRepository;
+import com.CompanyManagement.persistence.repositories.ItemRepository;
 import com.CompanyManagement.reports.InvoicePdfView;
 import com.CompanyManagement.service.CustomerService;
 import com.CompanyManagement.service.InvoiceService;
@@ -14,20 +15,17 @@ import com.CompanyManagement.web.SearchParams;
 import com.CompanyManagement.web.dto.InvoiceDto;
 import com.CompanyManagement.web.dto.ItemDto;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,12 +36,14 @@ import java.util.UUID;
 public class InvoiceController {
 
     private final ItemService itemService;
+    private final ItemRepository itemRepository;
     private final InvoiceService invoiceService;
     private final InvoiceRepository invoiceRepository;
     private final CustomerService customerService;
 
-    public InvoiceController(ItemService itemService, InvoiceService invoiceService, InvoiceRepository invoiceRepository, CustomerService customerService) {
+    public InvoiceController(ItemService itemService, ItemRepository itemRepository, InvoiceService invoiceService, InvoiceRepository invoiceRepository, CustomerService customerService) {
         this.itemService = itemService;
+        this.itemRepository = itemRepository;
         this.invoiceService = invoiceService;
         this.invoiceRepository = invoiceRepository;
         this.customerService = customerService;
@@ -90,6 +90,7 @@ public class InvoiceController {
             model.addAttribute("invoice", invoice);
             model.addAttribute("customers", customerService.getCustomers());
             model.addAttribute("info", e.getMessage());
+            model.addAttribute("paymentMethods", PaymentMethods.values());
             return "invoice-add";
         }
         return "redirect:/invoices/viewPage";
