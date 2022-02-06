@@ -65,7 +65,7 @@ public class CustomerService {
         var customerList = new ArrayList<Customer>();
 
         customers.forEach(c -> {
-            if(c.getSurname().toLowerCase().contains(keyword)) {
+            if(c.getSurname().toLowerCase().contains(keyword.toLowerCase())) {
                 customerList.add(c);
             }
         });

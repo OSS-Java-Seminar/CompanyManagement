@@ -66,12 +66,12 @@ public class ItemService {
         }
 
         //SEARCH
-        public List<Item> findByItemNameIgnoreCase(@Pattern(regexp = "[A-Za-z]") String keyword) {
+        public List<Item> findByItemNameContainingIgnoreCase(@Pattern(regexp = "[A-Za-z]+") String keyword) {
                 var items = itemRepository.findAll();
                 var itemList = new ArrayList<Item>();
 
                 items.forEach(i -> {
-                        if(i.getItemName().toLowerCase().contains(keyword)) {
+                        if(i.getItemName().toLowerCase().contains(keyword.toLowerCase())) {
                                 itemList.add(i);
                         }
                 });

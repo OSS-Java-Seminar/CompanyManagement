@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public interface ItemRepository extends JpaRepository<Item, UUID> {
 
-    Item findByItemNameIgnoreCase(String itemName);
+    List<Item> findByItemNameContainingIgnoreCase(String itemName);
 
     Page<Item> findAll(Pageable pageable);
     List<Item> findAll(Sort sort);

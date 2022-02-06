@@ -57,7 +57,7 @@ public class EmployeeServiceImpl implements EmployeeService{
         var employeeList = new ArrayList<EmployeeDto>();
 
         employees.forEach(e -> {
-            if(e.getSurname().toLowerCase().contains(keyword)) {
+            if(e.getSurname().toLowerCase().contains(keyword.toLowerCase())) {
                 employeeList.add(e);
             }
         });

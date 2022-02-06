@@ -80,11 +80,11 @@ public class CustomerController {
 
     @RequestMapping("/viewPPage")
     public String viewPPage(Model model, @Param("keyword")String keyword) {
-        return findBySurnameIgnoreCaseAll(model, keyword,1, "surname", "asc");
+        return findBySurnameIgnoreCase(model, keyword,1, "surname", "asc");
     }
 
     @RequestMapping("search")
-    public String findBySurnameIgnoreCaseAll(Model model, @Param("keyword") String keyword,
+    public String findBySurnameIgnoreCase(Model model, @Param("keyword") String keyword,
                                              @PathVariable("pageNumber") int currentPage,
                                              @Param("sortField") String sortField,
                                              @Param("sortDir") String sortDir) {
@@ -102,7 +102,6 @@ public class CustomerController {
         model.addAttribute("currentPage", currentPage);
         model.addAttribute("totalElements", totalElements);
         model.addAttribute("totalPages", totalPages);
-        model.addAttribute("listCustomers", listCustomers);
         model.addAttribute("sortField", sortField);
         model.addAttribute("sortDir", sortDir);
         model.addAttribute("sortDir", sortDir);

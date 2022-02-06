@@ -1,9 +1,6 @@
 package com.CompanyManagement.api;
 
-import com.CompanyManagement.reports.InvoiceReport;
-import com.CompanyManagement.reports.MonthlyReport;
-import com.CompanyManagement.reports.PaymentMethodCardReport;
-import com.CompanyManagement.reports.PaymentMethodCashReport;
+import com.CompanyManagement.reports.*;
 import com.CompanyManagement.service.InvoiceService;
 import com.CompanyManagement.util.MapperUtils;
 import com.CompanyManagement.web.dto.InvoiceDto;
@@ -72,6 +69,35 @@ public class ReportController {
         String headerValue = "attachment; filename=invoices_total_report" + ".pdf";
         response.setHeader("Content-Disposition", headerValue);
         PaymentMethodCardReport exporter = new PaymentMethodCardReport(invoiceService);
+        exporter.export(response);
+    }
+
+    @GetMapping("/paymentStatusPaid/pdf")
+    public void downloadPdfFilePaid(HttpServletResponse response) {
+        InvoiceDto invoice = MapperUtils.mapObject(invoiceService.getInvoices(), InvoiceDto.class);
+        response.setContentType("application/pdf");
+        String headerValue = "attachment; filename=invoices_total_report" + ".pdf";
+        response.setHeader("Content-Disposition", headerValue);
+        PaymentStatusPaidReport exporter = new PaymentStatusPaidReport(invoiceService);
+        exporter.export(response);
+    }
+
+    @GetMapping("/paymentStatusCreated/pdf")
+    public void downloadPdfFileCreated(HttpServletResponse response) {
+        InvoiceDto invoice = MapperUtils.mapObject(invoiceService.getInvoices(), InvoiceDto.class);
+        response.setContentType("application/pdf");
+        String headerValue = "attachment; filename=invoices_total_report" + ".pdf";
+        response.setHeader("Content-Disposition", headerValue);
+        PaymentStatusCreatedReport exporter = new PaymentStatusCreatedReport(invoiceService);
+        exporter.export(response);
+    }
+    @GetMapping("/paymentStatusOnHold/pdf")
+    public void downloadPdfFileOnHold(HttpServletResponse response) {
+        InvoiceDto invoice = MapperUtils.mapObject(invoiceService.getInvoices(), InvoiceDto.class);
+        response.setContentType("application/pdf");
+        String headerValue = "attachment; filename=invoices_total_report" + ".pdf";
+        response.setHeader("Content-Disposition", headerValue);
+        PaymentStatusOnHoldReport exporter = new PaymentStatusOnHoldReport(invoiceService);
         exporter.export(response);
     }
 

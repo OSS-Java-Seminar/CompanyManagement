@@ -127,8 +127,8 @@ public class ItemController {
 
     //SEARCH
     @RequestMapping("/search")
-    public String findByItemNameIgnoreCaseAll(Model model, @Param("keyword") String keyword) {
-        List<Item> listItems = itemService.findByItemNameIgnoreCase(keyword);
+    public String findByItemNameIgnoreCase(Model model, @Param("keyword") String keyword) {
+        List<Item> listItems = itemService.findByItemNameContainingIgnoreCase(keyword);
         model.addAttribute("listItems", listItems);
         model.addAttribute("keyword", keyword);
 

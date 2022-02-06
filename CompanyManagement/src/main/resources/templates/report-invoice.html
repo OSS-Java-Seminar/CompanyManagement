@@ -29,15 +29,11 @@
     <div sec:authorize="hasAnyAuthority('ADMIN')">
         <a th:href="@{/employees/viewPage}">Employees</a>
     </div>
-    <a href="#">About</a>
     <!--admin if-->
     <div class="topnav-right">
         <a th:href="@{/logout}"> Logout </a>
     </div>
 </div>
-<br>
-<br>
-<br>
 
 <div class="container my-5">
     <div class="card bg-light">
@@ -73,6 +69,30 @@
                     &nbsp;&nbsp;<a class="btn btn-danger btn-md btn-sm-block float-right" th:href="@{/reports/paymentMethodCard/pdf}">
                     <i class="fas fa-file-pdf mr-2"></i> PDF</a>
                     <small style="color: #7D6B91"><p>&nbsp;&nbsp;List of invoices where payment method is CARD</p></small>
+                </div>
+            </div>
+            <br>
+            <div class="card-title">
+                <div class="row justify-content-left">
+                    &nbsp;&nbsp;<a class="btn btn-danger btn-md btn-sm-block float-right" th:href="@{/reports/paymentStatusPaid/pdf}">
+                    <i class="fas fa-file-pdf mr-2"></i> PDF</a>
+                    <small style="color: #7D6B91"><p>&nbsp;&nbsp;List of invoices where payment status is PAYED</p></small>
+                </div>
+            </div>
+            <br>
+            <div class="card-title">
+                <div class="row justify-content-left">
+                    &nbsp;&nbsp;<a class="btn btn-danger btn-md btn-sm-block float-right" th:href="@{/reports/paymentStatusCreated/pdf}">
+                    <i class="fas fa-file-pdf mr-2"></i> PDF</a>
+                    <small style="color: #7D6B91"><p>&nbsp;&nbsp;List of invoices where payment status is CREATED</p></small>
+                </div>
+            </div>
+            <br>
+            <div class="card-title">
+                <div class="row justify-content-left">
+                    &nbsp;&nbsp;<a class="btn btn-danger btn-md btn-sm-block float-right" th:href="@{/reports/paymentStatusOnHold/pdf}">
+                    <i class="fas fa-file-pdf mr-2"></i> PDF</a>
+                    <small style="color: #7D6B91"><p>&nbsp;&nbsp;List of invoices where payment status is ON-HOLD</p></small>
                 </div>
             </div>
 

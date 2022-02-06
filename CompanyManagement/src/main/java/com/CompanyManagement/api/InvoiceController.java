@@ -137,9 +137,9 @@ public class InvoiceController {
     }
 
     @GetMapping("/delete/{id}")
-    public RedirectView delete(@PathVariable(value = "id") UUID id) {
+    public String delete(@PathVariable(value = "id") UUID id) {
         invoiceService.deleteInvoice(id);
-        return new RedirectView("/invoices");
+        return "redirect:/invoices/viewPage";
     }
 
     //NOVI PAGING
