@@ -12,13 +12,12 @@ Company management web application that manages everyday tasks related to invoic
 
 ## Features
 **• Invoice creation** <br/> &nbsp;&nbsp;&nbsp;- automatic generation: invoice number, invoice id and total invoice amount. <br/><br/> 
-**• Item search** <br/> &nbsp;&nbsp;&nbsp;- by item id, by category, stock overview. <br/><br/>
-**• Issuance of invoice** <br/> &nbsp;&nbsp;&nbsp;- print invoice or send invoice by e-mail, issue R1 or regular invoice. <br/><br/>
-**• Invoice cancellation** <br/> &nbsp;&nbsp;&nbsp;- creating a cancellation invoice in case of return of the item. <br/><br/>
-**• Preparation of reports** <br/> &nbsp;&nbsp;&nbsp;- reports on daily/monthly turnover, repo. per item or per customer or total turnover. <br/><br/>
-**• Search for customer data** <br/> &nbsp;&nbsp;&nbsp;- search for customers and accounts of those customers. <br/><br/>
-**• Printout of basic data on the invoice** <br/> &nbsp;&nbsp;&nbsp;- ID of the employee at the cash register, company data: OIB, address, director, telephone, IBAN - in case of non-cash payment, the due date of the invoice, date of invoice, date of delivery of goods, method of payment. Customer data: customer citizens or company data (R1 invoice). <br/><br/>
-**• Printout of item data on the invoice** <br/> &nbsp;&nbsp;&nbsp;- item number, item ID, item name, quantity, unit price, amount. VAT, discount
+**• Item search** <br/> &nbsp;&nbsp;&nbsp;- by item name, stock overview. <br/><br/>
+**• Issuance of invoice** <br/> &nbsp;&nbsp;&nbsp;- export invoice in pdf. <br/><br/>
+**• Preparation of reports** <br/> &nbsp;&nbsp;&nbsp;- reports on yearly/monthly turnover, reports by payment status or payment method. <br/><br/>
+**• Search for customer data** <br/> &nbsp;&nbsp;&nbsp;- search for customers and invoices of those customers. <br/><br/>
+**• Printout of basic data on the invoice** <br/> &nbsp;&nbsp;&nbsp;- Info of the employee at the cash register, company data: OIB, address, director, telephone, the due date of the invoice, date of invoice, method of payment, customer data. <br/><br/>
+**• Printout of item data on the invoice** <br/> &nbsp;&nbsp;&nbsp;- item name, quantity, unit price, amount. VAT, discount
 
 ## Technologies
 * Bootstrap
