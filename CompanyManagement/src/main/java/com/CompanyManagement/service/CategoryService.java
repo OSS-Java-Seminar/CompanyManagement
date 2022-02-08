@@ -2,6 +2,7 @@ package com.CompanyManagement.service;
 
 import com.CompanyManagement.persistence.entities.Category;
 import com.CompanyManagement.persistence.entities.Customer;
+import com.CompanyManagement.persistence.entities.Item;
 import com.CompanyManagement.persistence.repositories.CategoryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -25,7 +26,7 @@ public class CategoryService {
     }
 
     public List<Category> getCategories() {
-        return (List<Category>) categoryRepository.findAll();
+        return categoryRepository.findAll();
     }
 
     public Category findByCategoryName(String categoryName) {

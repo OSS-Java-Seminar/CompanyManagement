@@ -13,8 +13,6 @@
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" rel="stylesheet">
     <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
           integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" rel="stylesheet">
-    <!-- <link rel="stylesheet" href="../css/shards.min.css"> -->
-
     <style>
         .btn-purple{
             background-color:#4f4397;
@@ -29,12 +27,10 @@
     <div sec:authorize="hasAnyAuthority('ADMIN')">
         <a th:href="@{/employees/viewPage}">Employees</a>
     </div>
-    <!--admin if-->
     <div class="topnav-right">
         <a th:href="@{/logout}"> Logout </a>
     </div>
 </div>
-<!--<div class="container my-2">!-->
 <div class="card">
     <div class="card-body">
         <div class="container my-5" th:switch="${invoices}">
@@ -68,7 +64,7 @@
                                type="date"/>
                         <br/>
                         <div align="center">
-                            <small style="color: #7D6B91">search by date</small>
+                            <small style="color: #7D6B91">and search by date</small>
                         </div>
                     </div>
 
@@ -149,10 +145,6 @@
     function clearFilter() {
         window.location = '/invoices/viewPage';
     }
-
-
-
-
 </script>
 </body>
 

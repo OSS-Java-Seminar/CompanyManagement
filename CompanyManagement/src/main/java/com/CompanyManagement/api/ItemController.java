@@ -6,9 +6,6 @@ import com.CompanyManagement.persistence.repositories.CategoryRepository;
 import com.CompanyManagement.persistence.repositories.ItemRepository;
 import com.CompanyManagement.service.CategoryService;
 import com.CompanyManagement.service.ItemService;
-import com.CompanyManagement.util.MapperUtils;
-import com.CompanyManagement.web.SearchParams;
-import com.CompanyManagement.web.dto.ItemDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
@@ -18,11 +15,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
-
 
 @Controller
 @SessionAttributes({"categories"})
@@ -71,7 +65,7 @@ public class ItemController {
     }
 
     @PostMapping("addItem")
-    public String addItem(@Valid Item item, BindingResult result, Model model) {
+    public String addItem(@Valid Item item, BindingResult result) {
         if (result.hasErrors()) {
             return "item-add";
         }
@@ -125,7 +119,6 @@ public class ItemController {
         itemService.assignCategoryToItem(itemId, categoryId);
     }
 
-    //SEARCH
     @RequestMapping("/search")
     public String findByItemNameIgnoreCase(Model model, @Param("keyword") String keyword) {
         List<Item> listItems = itemService.findByItemNameContainingIgnoreCase(keyword);
@@ -135,16 +128,15 @@ public class ItemController {
         return "item-search";
     }
 
-    //PAGING
     @RequestMapping("viewPage")
     public String viewPage(Model model) {
-        return listByPage(model, 1, "price", "asc");
+        return listByPage(model, 1, "categoryName", "asc");
     }
 
     @GetMapping("/page/{pageNumber}")
     public String listByPage(Model model,
                              @PathVariable("pageNumber") int currentPage,
-                             @Param("sortField") String sortField,
+                             @Param("sortField1") String sortField,
                              @Param("sortDir") String sortDir) {
 
         Page<Item> page = itemService.listAll(currentPage, sortField, sortDir);

@@ -102,7 +102,7 @@ public class InvoiceService {
 
 
         long numberOfInvoices = invoiceRepository.count();
-        invoice.setInvoiceNumber((int) ((Math.random() * (99 - 10)) + 10));
+        invoice.setInvoiceNumber((int) ((Math.random() * (999 - 10)) + 10));
 
         createInvoice(MapperUtils.mapObject(invoice, Invoice.class));
     }

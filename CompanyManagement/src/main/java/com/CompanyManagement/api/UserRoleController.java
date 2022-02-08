@@ -1,6 +1,5 @@
 package com.CompanyManagement.api;
 
-import com.CompanyManagement.persistence.entities.UserRole;
 import com.CompanyManagement.service.UserRoleService;
 import com.CompanyManagement.web.dto.UserRoleDto;
 import lombok.AllArgsConstructor;

@@ -19,15 +19,14 @@
     <div sec:authorize="hasAnyAuthority('ADMIN')">
         <a th:href="@{/employees/viewPage}">Employees</a>
     </div>
-    <!--admin if-->
     <div class="topnav-right">
         <a th:href="@{/logout}"> Logout </a>
     </div>
 </div>
 <div class="container my-5">
-    <h3> Update Customer</h3>
     <div class="card">
         <div class="card-body">
+            <h3> Update Customer</h3>
             <div class="col-md-8">
                 <form action="#" th:action="@{/customers/update/{id}(id=${customer.id})}" th:object="${customer}" method="post">
                     <div class="row">

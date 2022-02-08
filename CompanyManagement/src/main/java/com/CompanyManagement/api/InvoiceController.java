@@ -49,11 +49,6 @@ public class InvoiceController {
         this.customerService = customerService;
     }
 
-    @PostMapping
-    public void createInvoice(@RequestBody Invoice invoice) {
-        invoiceService.createInvoice(invoice);
-    }
-
     @GetMapping("listOfInvoices")
     public String getInvoices(Model model) {
         model.addAttribute("invoices", MapperUtils.mapList(invoiceService.getInvoices(), InvoiceDto.class));
@@ -61,9 +56,6 @@ public class InvoiceController {
         return "invoice-list";
     }
 
-    /**
-     * Returns form for creating new item.
-     */
     @GetMapping("/invoice")
     public String getCreateItemForm(Model model) {
         model.addAttribute("invoice", new InvoiceDto());
@@ -96,18 +88,15 @@ public class InvoiceController {
         return "redirect:/invoices/viewPage";
     }
 
-    /**
-     * Product autocomplete. Called by javascript.
-     */
     @GetMapping(value = "/load-products/{term}", produces = {"application/json"})
     public @ResponseBody
     List<ItemDto> loadProducts(@PathVariable String term) {
         return MapperUtils.mapList(itemService.getItems(term), ItemDto.class);
     }
 
-    //UPDATE PAYMENT STATUS
+
     @PostMapping("/update/{id}")
-    public String updateStatus(@PathVariable(value = "id") UUID id, InvoiceDto invoice) {
+    public String updatePaymentStatus(@PathVariable(value = "id") UUID id, InvoiceDto invoice) {
         Invoice invoiceEntity = invoiceService.getById(id);
         invoiceEntity.setPaymentStatus(invoice.getPaymentStatus());
         invoiceRepository.save(invoiceEntity);
@@ -124,9 +113,6 @@ public class InvoiceController {
         return "invoice-detail";
     }
 
-    /**
-     * Generates .pdf document based on selected invoice.
-     */
     @GetMapping("/view/{id}/pdf")
     public void downloadExcel(@PathVariable(value = "id") UUID id, HttpServletResponse response) {
         InvoiceDto invoice = MapperUtils.mapObject(invoiceService.getById(id), InvoiceDto.class);
@@ -143,7 +129,6 @@ public class InvoiceController {
         return "redirect:/invoices/viewPage";
     }
 
-    //NOVI PAGING
     @RequestMapping("/viewPage")
     public String viewPage(Model model) {
         return listByPage(model, 1, "dateOfIssue", "asc", null);

@@ -26,7 +26,6 @@ import java.util.*;
 public class EmployeeController {
 
     private final EmployeeRepository employeeRepository;
-
     @Autowired
     public EmployeeController(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;

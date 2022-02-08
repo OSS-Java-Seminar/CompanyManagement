@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -22,7 +21,6 @@ import java.util.stream.Collectors;
 @Component
 @Service
 public class ItemService {
-
 
         private final ItemRepository itemRepository;
         private final CategoryRepository categoryRepository;
@@ -32,7 +30,7 @@ public class ItemService {
         }
 
         public List<Item> getItems() {
-                return (List<Item>) itemRepository.findAll();
+                return itemRepository.findAll();
         }
 
         public List<Item> getItems(String searchText) {
@@ -66,7 +64,6 @@ public class ItemService {
                 itemRepository.save(item);
         }
 
-        //SEARCH
         public List<Item> findByItemNameContainingIgnoreCase(@Pattern(regexp = "[A-Za-z]+") String keyword) {
                 var items = itemRepository.findAll();
                 var itemList = new ArrayList<Item>();
@@ -79,12 +76,10 @@ public class ItemService {
                 return itemList;
         }
 
-
-        //PAGING&SORTING
         public Page<Item> listAll(int pageNumber, String sortField, String sortDir) {
-                Sort sort = Sort.by("price");
+                Sort sort = Sort.by("category.categoryName");
                 sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
-                Pageable pageable = PageRequest.of(pageNumber - 1, 3, sort);
+                Pageable pageable = PageRequest.of(pageNumber - 1, 5, sort);
                 return itemRepository.findAll(pageable);
         }
 

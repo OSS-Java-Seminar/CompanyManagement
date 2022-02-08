@@ -18,12 +18,6 @@ public interface CustomerRepository extends JpaRepository<Customer, UUID> {
    Customer findByOib(long oib);
    Customer findBySurnameIgnoreCase(String surname);
 
-   /*//PAGING
-   Page<Customer> findAll(Pageable pageable);
-
-   //SORTING
-   List<Customer> findAllByOrderBySurnameAsc(Sort sort);*/
-
    Page<Customer> findAll(Pageable pageable);
    List<Customer> findAll(Sort sort);
 

@@ -11,7 +11,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" href="../css/shards.min.css"> -->
 </head>
 
 <body>
@@ -20,18 +19,16 @@
     <div sec:authorize="hasAnyAuthority('ADMIN')">
         <a th:href="@{/employees/viewPage}">Employees</a>
     </div>
-    <!--admin if-->
     <div class="topnav-right">
         <a th:href="@{/logout}"> Logout </a>
     </div>
 </div>
-<!--<div class="container my-2">!-->
 <div class="card">
     <div class="card-body">
         <div th:switch="${listItem}" class="container my-5">
             <p class="my-5">
-                <a href="/items/addItem" class="btn btn-purple btn-sm" style="background-color:#4f4397;color:white"><i class="fas fa-wrench"></i>&nbsp;Add New Item</a>
                 <a href="/categories/addCategory" class="btn btn-purple btn-sm" style="background-color:#4f4397;color:white"><i class="fas fa-wrench"></i>&nbsp;Add New Category</a>
+                <a href="/items/addItem" class="btn btn-purple btn-sm" style="background-color:#4f4397;color:white"><i class="fas fa-wrench"></i>&nbsp;Add New Item</a>
             </p>
 
             <div>
@@ -45,6 +42,7 @@
                 </form>
 
             </div>
+
             <br>
             <div class="col-md-10">
                 <h2 th:case="null">No items yet!</h2>
@@ -53,13 +51,13 @@
                         <thead>
                         <tr>
                             <th>Item Name</th>
+                            <th>Purchase&nbsp;Price</th>
+                            <th>Items&nbsp;in&nbsp;Stock</th>
                             <th>
-                                <a th:href="@{'/items/page/' + ${currentPage} + '?sortField=itemName&sortDir=' + ${reverseSortDir}}">
-                                    Purchase Price
+                                <a th:href="@{'/items/page/' + ${currentPage} + '?sortField=category&sortDir=' + ${reverseSortDir}}">
+                                Category
                                 </a>
                             </th>
-                            <th>Items in Stock</th>
-                            <th>Category</th>
                             <th>Edit</th>
                             <!--<th>Delete</th>-->
                         </tr>
@@ -100,7 +98,6 @@
         </div>
     </div>
 </div>
-<!--</div>!-->
 <script type="text/javascript">
     function clearFilter() {
         window.location = '/items/viewPage';

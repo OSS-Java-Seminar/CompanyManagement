@@ -12,10 +12,7 @@ import java.util.UUID;
 public interface InvoiceRepository extends JpaRepository<Invoice, UUID> {
 
     Page<Invoice> findAll(Pageable pageable);
-
     List<Invoice> findAll(Sort sort);
-
-    List<Invoice> findAll();
 
     Page<Invoice> findAllByDateOfIssueAndCustomer_customerNameContainingIgnoreCaseOrCustomer_surnameContainingIgnoreCase(String date, String searchText, String searchText1, Pageable pageable);
 }

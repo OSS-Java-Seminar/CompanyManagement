@@ -77,7 +77,7 @@ public class EmployeeServiceImpl implements EmployeeService{
         return employeeRepository.save(employee);                                           /*Arrays.asList(new UserRole("USER")));*/
     }
 
-        @Override
+    @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         EmployeeDto employee = employeeDto.ConvertEntityToDto(employeeRepository.findByEmail(s));
         if(employee == null) {
@@ -95,10 +95,6 @@ public class EmployeeServiceImpl implements EmployeeService{
 
     public List<EmployeeDto> getEmployees() {
         return employeeDto.ConvertEntityToDto(employeeRepository.findAll());
-    }
-
-    public Employee findByOib(long oib) {
-        return employeeRepository.findByOib(oib);
     }
 
     @Override

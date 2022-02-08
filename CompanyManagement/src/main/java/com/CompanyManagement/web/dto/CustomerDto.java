@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Component
 public class CustomerDto {
+
     private UUID id;
     private String customerName;
     private String surname;
@@ -41,9 +42,7 @@ public class CustomerDto {
     public List<CustomerDto> ConvertEntityToDto(List<Customer> customers) {
         return customers.stream().map(x -> ConvertEntityToDto(x)).collect(Collectors.toList());
     }
-    public List<Customer> ConvertDtoToEntity(List<CustomerDto> customerDtos) {
-        return customerDtos.stream().map(x -> ConvertDtoToEntity(x)).collect(Collectors.toList());
-    }
+
     public CustomerDto ConvertEntityToDto(Customer customer) {
         CustomerDto customerDto = new CustomerDto();
         customerDto.setId(customer.getId());

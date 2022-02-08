@@ -72,7 +72,6 @@ public class CustomerService {
         return customerList;
     }
 
-    //NOVI PAGING&SORTING
     public Page<Customer> listAll(int pageNumber, String sortField, String sortDir) {
         Sort sort = Sort.by("surname");
         sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();

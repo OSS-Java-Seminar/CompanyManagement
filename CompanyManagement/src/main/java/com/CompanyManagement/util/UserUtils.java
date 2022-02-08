@@ -5,11 +5,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 public class UserUtils {
 
-    /**
-     * Returns username based on currently logged in user.
-     *
-     * @return
-     */
     public static String getUsername() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 

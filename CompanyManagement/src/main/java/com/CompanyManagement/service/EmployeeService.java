@@ -12,16 +12,15 @@ import java.util.UUID;
 
 public interface EmployeeService extends UserDetailsService {
 
-
-    public List<UserRoleDto> listRoles();
-    public Employee get(UUID id);
+    List<UserRoleDto> listRoles();
+    Employee get(UUID id);
     Employee save(EmployeeRegistrationDto registrationDto);
-    public String deleteEmployee(UUID id);
+    String deleteEmployee(UUID id);
     Employee findByEmail(String email);
-    public boolean emailExists(String email);
-    public List<EmployeeDto> findBySurnameIgnoreCase(String keyword);
+    boolean emailExists(String email);
+    List<EmployeeDto> findBySurnameIgnoreCase(String keyword);
     Page<Employee> listAll(int currentPage, String sortField, String sortDir);
-    public List<EmployeeDto> getEmployees();
+    List<EmployeeDto> getEmployees();
 
 
 }

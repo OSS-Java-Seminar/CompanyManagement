@@ -5,9 +5,6 @@ import com.CompanyManagement.persistence.entities.Employee;
 import com.CompanyManagement.persistence.entities.Invoice;
 import com.CompanyManagement.persistence.entities.ItemInvoice;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -18,22 +15,16 @@ import java.util.UUID;
 public class InvoiceDto {
 
     private UUID id;
-
     private int invoiceNumber;
-
     private float totalAmount;
-
     private String dateOfIssue;
-
     private String dueDate;
-
     private float vat;
 
     @Max(value = 40)
     private float discount;
 
     private String paymentStatus;
-
     private String paymentMethod;
 
     @NotNull(message = "Customer must be selected.")
@@ -59,20 +50,6 @@ public class InvoiceDto {
         }
 
         this.totalAmount = total;
-    }
-
-    public Invoice toEntity() {
-        Invoice entity = new Invoice();
-        entity.setId(this.id);
-        entity.setInvoiceNumber(this.invoiceNumber);
-        entity.setTotalAmount(this.totalAmount);
-        entity.setDateOfIssue(this.dateOfIssue);
-        entity.setDueDate(this.dueDate);
-        entity.setVat(this.vat);
-        entity.setDiscount(this.discount);
-        entity.setPaymentStatus(this.paymentStatus);
-        entity.setPaymentMethod(this.getPaymentMethod());
-        return entity;
     }
 
 }

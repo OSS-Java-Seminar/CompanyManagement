@@ -1,9 +1,11 @@
 package com.CompanyManagement.api;
 
 import com.CompanyManagement.persistence.entities.Category;
+import com.CompanyManagement.persistence.entities.Item;
 import com.CompanyManagement.persistence.repositories.CategoryRepository;
 import com.CompanyManagement.service.CategoryService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
-
 
 @AllArgsConstructor
 @Controller
@@ -39,4 +40,5 @@ public class CategoryController {
     public Category findCategoryByName(@PathVariable String categoryName) {
         return categoryService.findByCategoryName(categoryName);
     }
+
 }

@@ -119,7 +119,6 @@ public class CustomerController {
         return customerService.getCustomers();
     }
 
-    //NOVI PAGING&SORTING
     @RequestMapping("/viewPage")
     public String viewPage(Model model) {
         return listByPage(model, 1, "surname", "asc");

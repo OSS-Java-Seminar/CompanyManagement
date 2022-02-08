@@ -1,7 +1,6 @@
 package com.CompanyManagement.persistence.entities;
 
 import lombok.Data;
-
 import javax.persistence.*;
 import java.io.Serializable;
 

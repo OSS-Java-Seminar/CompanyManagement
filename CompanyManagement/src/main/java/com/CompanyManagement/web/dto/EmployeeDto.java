@@ -27,9 +27,6 @@ public class EmployeeDto {
     private List<Invoice> invoices;
     private Collection<UserRole> roles;
 
-    public EmployeeDto(String employeeName, String surname, long oib, String address, String email, String encode, Object o) {
-    }
-
     public Employee ConvertDtoToEntity(EmployeeDto employeeDto) {
         Employee employee = new Employee();
         employee.setId(employeeDto.getId());
@@ -56,8 +53,5 @@ public class EmployeeDto {
     }
     public List<EmployeeDto> ConvertEntityToDto(List<Employee> employees) {
         return employees.stream().map(x -> ConvertEntityToDto(x)).collect(Collectors.toList());
-    }
-    public List<Employee> ConvertDtoToEntity(List<EmployeeDto> employeeDtos) {
-        return employeeDtos.stream().map(x -> ConvertDtoToEntity(x)).collect(Collectors.toList());
     }
 }
