@@ -77,7 +77,7 @@ public class InvoiceService {
                 invoice.addItemInvoice(itemInvoice);
 
                 if (product.getQuantity() < (itemInvoice.getAmount())) {
-                    throw new NotEnoughQuantityException(String.format("Not enough item in stock %s - %s", product.getItemName(), product.getQuantity()));
+                    throw new NotEnoughQuantityException(String.format("Not enough item in stock %s, items currently in stock: %s", product.getItemName(), product.getQuantity()));
                 }
 
                 log.info("ID: " + itemId[i].toString() + ", amount: " + amount[i].toString());
